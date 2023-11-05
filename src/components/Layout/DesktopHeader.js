@@ -36,7 +36,7 @@ const DesktopHeader = (props) => {
               className="form-control border-end-0 border"
               type="search"
               id="example-search-input"
-              placeholder="Tìm kiếm..."
+              placeholder="Search..."
               onChange={(e) => setKeyword(e.target.value)}
             />
             <span className="input-group-append">

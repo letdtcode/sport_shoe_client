@@ -14,6 +14,7 @@ import {
   Thead,
   Tr,
   VStack,
+  Input
 } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -93,7 +94,7 @@ const CartItem = (props) => {
                             </Box>
                           </Flex>
                         </Td>
-                        <Td>
+                        {/* <Td>
                           <Select
                             value={item.qty}
                             onChange={(e) =>
@@ -108,6 +109,39 @@ const CartItem = (props) => {
                               </option>
                             ))}
                           </Select>
+                        </Td> */}
+
+                        <Td className="center">
+                          <div className="quantity-control">
+                            <Button
+                              onClick={() => {      
+                                if (item.qty < item.countInStock) {
+                                  dispatch(addToCart(item.product, item.qty + 1));
+                                }
+                              }}
+                            >
+                              +
+                            </Button>
+                            <Input
+                              type="number"
+                              value={item.qty}
+                              min={0}
+                              max={item.countInStock}
+                              onChange={(e) => {
+                                const newValue = Math.min(Math.max(0, e.target.value), item.countInStock);
+                                dispatch(addToCart(item.product, Number(newValue)));
+                              }}
+                            />
+                            <Button
+                              onClick={() => {
+                                if (item.qty > 0) {
+                                  dispatch(addToCart(item.product, item.qty - 1));
+                                }
+                              }}
+                            >
+                              -
+                            </Button>
+                          </div>
                         </Td>
                         <Td textAlign="center">
                           <Box className="price-wrap">

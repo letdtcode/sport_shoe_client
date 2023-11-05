@@ -129,7 +129,7 @@ const MobileHeader = (props) => {
             <input
               type="search"
               className="form-control search"
-              placeholder="Tìm kiếm..."
+              placeholder="Search..."
               onChange={(e) => setKeyword(e.target.value)}
             />
             <button type="submit" className="search-button">

@@ -1521,3 +1521,7 @@ a[class*="card"]:hover .title {
   border-top-right-radius: 7px;
   overflow: hidden;
 }
+.quantity-control{
+  display: flex;
+  width: max-content;
+}
