@@ -1,0 +1,15 @@
+.link-header {
+  color: black;
+  text-decoration: none;
+}
+.link-header:hover {
+  color: gray;
+}
+
+.link-header.active {
+  color: #2b6cb0;
+}
+
+.link-header.active p {
+  font-size: 18px;
+}
