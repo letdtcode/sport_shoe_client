@@ -26,9 +26,9 @@ const Header = () => {
           <Flex className="row" align="center" justify="between">
             <Flex align="center" className="col-md-3 display-none">
               <CiMail className="mx-2" />
-              <a href="mailto:didan.mobe@gmail.com">
+              <a href="mailto:@student.hcmute.edu.vn">
                 <Text marginRight="2" fontSize="14px">
-                  didan.mobe@gmail.com
+                 @student.hcmute.edu.vn
                 </Text>
               </a>
             </Flex>
@@ -37,10 +37,10 @@ const Header = () => {
               align="center"
               className="col-12 col-lg-9 justify-content-lg-end display-none"
             >
-              <a href="https://www.facebook.com/ledidan">
+              <a href="https://www.facebook.com/">
                 <CiFacebook fontSize="20px" />
               </a>
-              <a href="https://instagram.com/blackdouble.d">
+              <a href="https://instagram.com/">
                 <CiInstagram fontSize="20px" />
               </a>
             </Flex>

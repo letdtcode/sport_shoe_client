@@ -33,7 +33,7 @@ const PlaceOrder = ({ history }) => {
     cart.cartItems.reduce((a, b) => a + b.qty * b.price, 0)
   );
   // Shipping Price
-  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100);
+  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 0);
   // Tax Price
   cart.taxPrice = addDecimals(Number(0.15 * cart.itemsPrice).toFixed(2));
   // Total Price
