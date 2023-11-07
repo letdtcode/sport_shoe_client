@@ -22,7 +22,7 @@ import OrderScreen from "./components/OrderScreen-UI/OrderScreen.v1";
 import ContactScreen from "./views/ContactScreen";
 import LoginMain from "./components/LoginScreen-UI/LoginMain-v1";
 import SignUp from "./components/SignupScreen-UI/SignupMain-v1";
-
+import NotFound from "./views/NotFound"; 
 const App = () => {
   return (
     <ChakraProvider theme={theme}>
@@ -43,7 +43,7 @@ const App = () => {
           <PrivateRouter path="/dat-hang" component={PlaceOrder} />
           <PrivateRouter path="/order/:id" component={OrderScreen} />
 
-          <HomeRouter path="*" component={ShopScreen} />
+          <HomeRouter path="*" component={NotFound} />
         </Switch>
       </Router>
     </ChakraProvider>
