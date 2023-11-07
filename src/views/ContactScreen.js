@@ -80,12 +80,12 @@ const ContactScreen = () => {
                 <div className="row">
                   <div className="col-md-6 form-group mb-5">
                     <label htmlFor="name" className="col-form-label">
-                      Họ Tên
+                      Full name
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Nhập tên"
+                      placeholder="Enter name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
@@ -102,7 +102,7 @@ const ContactScreen = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      placeholder="Nhập email.."
+                      placeholder="Enter mail.."
                     />
                     {emailError && <InlineError error={emailError} />}
                   </div>
@@ -110,14 +110,13 @@ const ContactScreen = () => {
                 <div className="row">
                   <div className="col-md-12 form-group mb-5">
                     <label htmlFor="subject" className="col-form-label">
-                      Tiều đề
+                      Title
                     </label>
                     <input
                       type="text"
                       className="form-control"
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
-                      placeholder="Nhập tiêu đề "
                       required
                     />
                     {subjectError && <InlineError error={subjectError} />}
@@ -134,7 +133,7 @@ const ContactScreen = () => {
                       onChange={(e) => setMessage(e.target.value)}
                       cols={55}
                       rows={4}
-                      placeholder="Viết lời nhắn bạn muốn gửi"
+                      placeholder="Write the message you want to send"
                       required
                     />
                     {messageError && <InlineError error={messageError} />}
@@ -146,7 +145,7 @@ const ContactScreen = () => {
                     className="btn btn-dark"
                     disabled={buttonLoading && true}
                   >
-                    {buttonLoading ? "Loading..." : "Gửi"}
+                    {buttonLoading ? "Loading..." : "Send"}
                   </button>
                 </div>
               </form>

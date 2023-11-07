@@ -104,14 +104,15 @@ textarea:focus {
 }
 
 .dropdown-menu {
-  background-color: black !important;
+  /*   */
+  background-color: #e2e8f0;
   border: 0 !important;
   padding: 0 !important;
   overflow: hidden;
 }
 .dropdown-menu a {
   padding: 10px 20px !important;
-  color: #ffffff !important;
+  color:  black !important;
   margin: 0 !important;
 }
 .dropdown-menu a:hover {
@@ -505,6 +506,30 @@ textarea:focus {
 .table-responsive {
   width: 100%;
 }
+
+/* toggleOrderDetails */
+.openOrder{
+  display: flex;
+}
+.openOrder-element{
+  width: 125px;
+}
+.element-order{
+  display: flex ;
+}
+.item-order-img{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+.item-order-button{
+  background-color:#00ff00!important;
+  color: #fff!important;
+  height: 30px;
+  text-align: center;
+  border-radius: 5px;
+}
+
 /* CART */
 .cart-iterm {
   margin: 40px 0;
