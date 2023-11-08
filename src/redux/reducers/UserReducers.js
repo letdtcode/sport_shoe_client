@@ -22,6 +22,7 @@ const stateDefault = {
 
 // USER LOGIN
 export const userLoginReducer = (state = stateDefault, action) => {
+
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return {
