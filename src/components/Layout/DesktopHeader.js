@@ -11,7 +11,7 @@ const DesktopHeader = (props) => {
   const logoutHandler = (e) => {
     e.preventDefault();
     dispatch(logout());
-    window.open(`${process.env.REACT_APP_SERVER_URL}/auth/logout`, "_self");
+    window.open(`/`, "_self");
   };
   const history = useHistory();
   const submitHandler = (e) => {

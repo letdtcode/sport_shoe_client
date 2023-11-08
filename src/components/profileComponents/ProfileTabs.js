@@ -11,8 +11,11 @@ const ProfileTabs = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [address,setAddress] = useState("");
+  const [phone,setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+  const [gender, setGender] = useState("");
   const toastId = React.useRef(null);
   const ToastObjects = {
     pauseOnFocusLoss: false,
@@ -31,6 +34,9 @@ const ProfileTabs = () => {
     if (userInfo) {
       setName(userInfo.name);
       setEmail(userInfo.email);
+      setGender(userInfo.gender)
+      setPhone(userInfo.phoneNumber)
+      setAddress(userInfo.address)
     }
   }, [dispatch, userInfo]);
 
@@ -45,7 +51,7 @@ const ProfileTabs = () => {
     } else {
       // ? UPDATE PROFILE
       console.log("Updated Profile Successfully");
-      dispatch(updateProfile({ id: userInfo._id, name, email, password }));
+      dispatch(updateProfile({ id: userInfo._id, name, email, password , gender, address, phoneNumber:phone}));
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.success(
           "Profile updated successful",
@@ -74,19 +80,43 @@ const ProfileTabs = () => {
             />
           </div>
         </div>
-
         <div className="col-md-6">
           <div className="form">
-            <label for="email">Email address</label>
+            <label for="name">Address</label>
             <input
               className="form-control"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              required
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
             />
           </div>
         </div>
         <div className="col-md-6">
+          <div className="form">
+            <label for="name">Phone</label>
+            <input
+              className="form-control"
+              type="text"
+              required
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="col-md-6">
+          <div className="form">
+            <label for="name">Gender</label>
+            <input
+              className="form-control"
+              type="text"
+              required
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+            />
+          </div>
+        </div>
+        {/* <div className="col-md-6">
           <div className="form">
             <label for="password">New password</label>
             <input
@@ -107,7 +137,7 @@ const ProfileTabs = () => {
               onChange={(e) => setConfirmPass(e.target.value)}
             />
           </div>
-        </div>
+        </div> */}
         <button type="submit">Update profile</button>
       </form>
     </>

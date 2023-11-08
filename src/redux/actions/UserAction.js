@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../services/axios";
 import URL from "../../URL";
 import { ORDER_LIST_MY_RESET } from "../constants/OrderConstants";
 
@@ -24,23 +24,21 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({ type: USER_LOGIN_REQUEST });
 
     // Using callback Auth headers config to identify json content
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
 
     // use axios.[POST] to compare user with server's user,
     const { data } = await axios.post(
       `${URL}/api/v1/users/login`,
-      { email, password },
-      config
+      { email, password }
+
     );
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
     // Update User Info with Server's User in localStorage
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem("userInfo", JSON.stringify(data.data));
+    localStorage.setItem("accessToken", JSON.stringify(data.accessToken));
+    localStorage.setItem("refreshToken", JSON.stringify(data.refreshToken));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -56,11 +54,6 @@ export const loginOAuth2 = () => async (dispatch) => {
   await fetch(`http://localhost:4000/auth/login/success`, {
     withCredentials: true,
     credentials: "include",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Credentials": true,
-    },
   })
     .then((res) => {
       if (res.status === 200) return res.json();
@@ -71,7 +64,6 @@ export const loginOAuth2 = () => async (dispatch) => {
         type: USER_LOGIN_SUCCESS,
         payload: JSON.stringify(resObject.user),
       });
-      console.log(resObject.user);
       localStorage.setItem("userInfo", JSON.stringify(resObject.user));
     })
     .catch((error) => {
@@ -87,22 +79,17 @@ export const loginOAuth2 = () => async (dispatch) => {
 // LOGOUT
 export const logout = () => async (dispatch) => {
   localStorage.removeItem("userInfo");
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
   // Redirect to /login
   document.location.href = "/login";
-  fetch("http://localhost:4000/auth/logout", {
+  fetch(`${process.env.REACT_APP_SERVER_URL}/auth/logout`, {
     withCredentials: true,
     credentials: "include",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Credentials": true,
-    },
   })
-    .then((res) => console.log("successfully logout", res))
-    .catch((err) => console.log(err));
 };
 
 // REGISTER USER
@@ -111,24 +98,16 @@ export const register = (name, email, password) => async (dispatch) => {
     dispatch({ type: USER_REGISTER_REQUEST });
 
     // Using callback Auth headers config to identify json content
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    
 
     // use axios.[POST] to compare user with server's user,
     const { data } = await axios.post(
       `${URL}/api/v1/users`,
-      { name, email, password },
-      config
+      { name, email, password }
     );
 
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-
-    // Update User Info with Server's User in localStorage
-    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
@@ -143,21 +122,12 @@ export const register = (name, email, password) => async (dispatch) => {
 // GET USER DETAILS
 export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
+ 
     dispatch({ type: USER_DETAILS_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
     // Using callback Auth headers config to identify json content
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    // use axios.[POST] to compare user with server's user,
-    const { data } = await axios.get(`${URL}/api/v1/users/${id}`, config);
+  
+    const { data } = await axios.get(`${URL}/api/v1/users/${id}`);
 
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -166,7 +136,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     if (message === "Not authorized, no token") {
-      dispatch(logout());
+    //  dispatch(logout());
     }
     dispatch({
       type: USER_DETAILS_FAIL,
@@ -180,21 +150,12 @@ export const getUserAuthDetail = (googleId) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_DETAILS_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
 
-    // Using callback Auth headers config to identify json content
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
+    // Using callback Auth headers config to identify json conten
 
     // use axios.[POST] to compare user with server's user,
     const { data } = await axios.get(
-      `http://localhost:4000/users/${googleId}`,
-      config
+      `http://localhost:4000/users/${googleId}`
     );
 
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
@@ -204,7 +165,7 @@ export const getUserAuthDetail = (googleId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     if (message === "Not authorized, no token") {
-      dispatch(logout());
+      // dispatch(logout());
     }
     dispatch({
       type: USER_DETAILS_FAIL,
@@ -218,23 +179,13 @@ export const updateProfile = (user) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
     // Using callback Auth headers config to identify json content
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
 
     // use axios.[PUT] to update user with server's user,
+    console.log(user)
     const { data } = await axios.put(
       `${URL}/api/v1/users/profile`,
-      user,
-      config
+      user
     );
 
     dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
@@ -248,7 +199,7 @@ export const updateProfile = (user) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     if (message === "Not authorized, no token") {
-      dispatch(logout());
+      // dispatch(logout());
     }
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,

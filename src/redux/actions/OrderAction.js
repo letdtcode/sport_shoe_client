@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../services/axios";
 import URL from "../../URL";
 import { CART_CLEAR_ITEMS } from "../constants/CartConstants";
 import {
@@ -25,19 +25,9 @@ export const createOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_CREATE_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+   
 
-    // Using callback Auth headers config to identify json content
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.post(`${URL}/api/v1/orders`, order, config);
+    const { data } = await axios.post(`${URL}/api/v1/orders`, order);
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
     dispatch({ type: CART_CLEAR_ITEMS, payload: data });
     localStorage.removeItem("cartItems");
@@ -61,18 +51,8 @@ export const getOrder = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
 
-    // Using callback Auth headers config to identify json content
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.get(`${URL}/api/v1/orders/${id}`, config);
+    const { data } = await axios.get(`${URL}/api/v1/orders/${id}`);
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     const message =
@@ -97,21 +77,10 @@ export const payOrder =
         type: ORDER_PAY_REQUEST,
       });
 
-      const {
-        userLogin: { userInfo },
-      } = getState();
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
-
+    
       const { data } = await axios.put(
         `${URL}/api/v1/orders/${orderId}/pay`,
-        paymentResult,
-        config
+        paymentResult
       );
 
       dispatch({
@@ -140,17 +109,9 @@ export const listMyOrderAction = () => async (dispatch, getState) => {
       type: ORDER_LIST_MY_REQUEST,
     });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+ 
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.get(`${URL}/api/v1/orders/`, config);
+    const { data } = await axios.get(`${URL}/api/v1/orders/`);
     dispatch({
       type: ORDER_LIST_MY_SUCCESS,
       payload: data,
@@ -176,17 +137,9 @@ export const deleteOrderAction = (id) => async (dispatch, getState) => {
       type: ORDER_DELETE_REQUEST,
     });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
 
-    const { data } = await axios.delete(`${URL}/api/v1/orders/${id}`, config);
+    const { data } = await axios.delete(`${URL}/api/v1/orders/${id}`);
     dispatch({
       type: ORDER_DELETE_SUCCESS,
       payload: data,

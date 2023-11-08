@@ -33,7 +33,7 @@ const ProfileScreen = () => {
     <>
       <Container className="container mt-lg-5 mt-3" maxW="container.2xl">
         <div className="row align-items-start">
-          <Box className="col-lg-4 p-0 shadow" borderRadius="lg">
+          <Box className="col-lg-3 p-0 shadow" borderRadius="lg">
             <div className="pb-0 pb-md-3">
               <div className="author-card-cover user-info-wrapper "></div>
               <div className="author-card-profile row">
@@ -100,7 +100,7 @@ const ProfileScreen = () => {
 
           {/* panels */}
           <div
-            className="tab-content col-lg-8 pb-5 pt-lg-0 pt-3"
+            className="tab-content col-lg-9 pb-5 pt-lg-0 pt-3"
             id="v-pills-tabContent"
           >
             <div

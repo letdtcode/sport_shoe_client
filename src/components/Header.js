@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Container, Flex, Text } from "@chakra-ui/react";
 import MobileHeader from "./Layout/MobileHeader";
@@ -10,7 +10,13 @@ const Header = () => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+ 
+  const [ userInfo, setUserInfo ] = useState(userLogin);
+
+  useEffect(()=>{
+    setUserInfo(userLogin);
+  }, [userLogin])
+
   return (
     <div>
       {/* Top Header */}
@@ -68,7 +74,7 @@ const Header = () => {
           >
             <DesktopHeader
               cartItems={cartItems}
-              userInfo={userInfo}
+              userInfo={userInfo.userInfo}
               keyword={keyword}
               dispatch={dispatch}
               setKeyword={setKeyword}
