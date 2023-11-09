@@ -99,7 +99,6 @@ const OrderScreen = ({ match }) => {
   }, [dispatch, orderId, successPay, order, successDelete, history, toast]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
   };
 

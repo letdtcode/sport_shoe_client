@@ -18,7 +18,7 @@ import { PasswordField } from "./PasswordField";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { register } from "../../redux/actions/UserAction";
+import { register, resetRegisterSuccess } from "../../redux/actions/UserAction";
 import Loading from "../../components/LoadingError/Loading";
 import Toast from "../../components/LoadingError/Toast";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,7 +38,7 @@ const SignUp = ({ location, history }) => {
   const redirect = location.search ? location.search.split("=")[1] : "/";
   const userRegister = useSelector((state) => state.userRegister);
   const toastId = React.useRef(null);
-  const { loading, error, userInfo } = userRegister;
+  const { loading, error, userInfo, success } = userRegister;
 
   useEffect(() => {
     if (userInfo) {
@@ -46,13 +46,23 @@ const SignUp = ({ location, history }) => {
     }
   }, [userInfo, redirect, history]);
 
-  const submitRegisterHandler = (e) => {
+  const submitRegisterHandler =  (e) => {
     e.preventDefault();
     dispatch(register(name, email, password));
-    if (!toast.isActive(toastId.current)) {
-      toastId.current = toast.success("Registered successful", ToastObjects);
-    }
+   
   };
+  useEffect(() => {
+    if (success === true) {
+      toastId.current = toast.success(userRegister.message, ToastObjects);
+      dispatch(resetRegisterSuccess());
+      setTimeout(() => {
+        history.push("/login");
+    }, 1500);
+    }
+    else{
+      toastId.current = toast.error(userRegister.error, ToastObjects);
+    }
+  },[userRegister]);
   return (
     <Container
       maxW="lg"

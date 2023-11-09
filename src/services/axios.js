@@ -1,14 +1,16 @@
 import axios from "axios";
 import { getToken, getRefreshToken, updateToken } from "./token";
-
+import URL from "../URL";
 const instance = axios.create({
-  baseURL: "http://localhost:8080/api/v1",
+ 
+  baseURL: (`${URL}/api/v1/`),
   timeout: 50000,
   validateStatus: function (status) {
     return status >= 200 && status <= 500;
   },
 });
 instance.interceptors.request.use(
+  
   (config) => {
     const token = getToken();
     if (token) {

@@ -11,8 +11,8 @@ const ProfileTabs = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [address,setAddress] = useState("");
-  const [phone,setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [gender, setGender] = useState("");
@@ -42,22 +42,12 @@ const ProfileTabs = () => {
 
   const submitUpdateHandler = (e) => {
     e.preventDefault();
-
-    // ? Password match
-    if (password !== confirmPass) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.error("Password does not match", ToastObjects);
-      }
-    } else {
-      // ? UPDATE PROFILE
-      console.log("Updated Profile Successfully");
-      dispatch(updateProfile({ id: userInfo._id, name, email, password , gender, address, phoneNumber:phone}));
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.success(
-          "Profile updated successful",
-          ToastObjects
-        );
-      }
+    dispatch(updateProfile({ id: userInfo._id, name, email, gender, address, phoneNumber: phone }));
+    if (!toast.isActive(toastId.current)) {
+      toastId.current = toast.success(
+        "Profile updated successful",
+        ToastObjects
+      );
     }
   };
 
@@ -67,7 +57,7 @@ const ProfileTabs = () => {
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
       {updateLoading && <Loading />}
-      <form className="row  form-container" onSubmit={submitUpdateHandler}>
+      <form className="row  form-container" onSubmit={submitUpdateHandler} noValidate>
         <div className="col-md-6">
           <div className="form">
             <label for="name">Name account</label>
@@ -106,14 +96,18 @@ const ProfileTabs = () => {
         </div>
         <div className="col-md-6">
           <div className="form">
-            <label for="name">Gender</label>
-            <input
+            <label htmlFor="gender">Gender</label>
+            <select
               className="form-control"
-              type="text"
-              required
+              id="gender"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-            />
+              required
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
           </div>
         </div>
         {/* <div className="col-md-6">

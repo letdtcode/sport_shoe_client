@@ -7,7 +7,6 @@ import { CiUser } from "react-icons/ci";
 import { AiOutlineUserAdd } from "react-icons/ai";
 const DesktopHeader = (props) => {
   const { userInfo, keyword, setKeyword, cartItems, dispatch } = props;
-
   const logoutHandler = (e) => {
     e.preventDefault();
     dispatch(logout());
@@ -55,7 +54,7 @@ const DesktopHeader = (props) => {
           <div className="btn-group">
             <ul className="nav nav-pills">
               <li className="nav-item dropdown">
-                <Link
+                <div
                   className="nav-link dropdown-toggle name-button text-dark"
                   data-bs-toggle="dropdown"
                 >
@@ -63,7 +62,7 @@ const DesktopHeader = (props) => {
                   {userInfo.isAdmin
                     ? `Admin ${userInfo.name}`
                     : `${userInfo.name}`}
-                </Link>
+                </div>
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to="/profile">
@@ -73,7 +72,7 @@ const DesktopHeader = (props) => {
                   <li>
                     <Link
                       className="dropdown-item"
-                      to="#"
+                      to="/"
                       onClick={logoutHandler}
                     >
                       Sign out

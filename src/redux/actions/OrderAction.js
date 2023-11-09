@@ -1,5 +1,4 @@
 import axios from "../../services/axios";
-import URL from "../../URL";
 import { CART_CLEAR_ITEMS } from "../constants/CartConstants";
 import {
   ORDER_CREATE_FAIL,
@@ -18,7 +17,6 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
 } from "../constants/OrderConstants";
-import { logout } from "./UserAction";
 
 // CREATE ORDER ACTION
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -27,7 +25,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 
    
 
-    const { data } = await axios.post(`${URL}/api/v1/orders`, order);
+    const { data } = await axios.post(`/orders`, order);
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
     dispatch({ type: CART_CLEAR_ITEMS, payload: data });
     localStorage.removeItem("cartItems");
@@ -36,9 +34,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, no token") {
-      dispatch(logout());
-    }
+   
     dispatch({
       type: ORDER_CREATE_FAIL,
       payload: message,
@@ -52,16 +48,14 @@ export const getOrder = (id) => async (dispatch, getState) => {
     dispatch({ type: ORDER_DETAILS_REQUEST });
 
 
-    const { data } = await axios.get(`${URL}/api/v1/orders/${id}`);
+    const { data } = await axios.get(`/orders/${id}`);
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, no token") {
-      dispatch(logout());
-    }
+  
     dispatch({
       type: ORDER_DETAILS_FAIL,
       payload: message,
@@ -79,7 +73,7 @@ export const payOrder =
 
     
       const { data } = await axios.put(
-        `${URL}/api/v1/orders/${orderId}/pay`,
+        `/orders/${orderId}/pay`,
         paymentResult
       );
 
@@ -92,9 +86,7 @@ export const payOrder =
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message;
-      if (message === "Not authorized, token failed") {
-        dispatch(logout());
-      }
+    
       dispatch({
         type: ORDER_PAY_FAIL,
         payload: message,
@@ -111,7 +103,7 @@ export const listMyOrderAction = () => async (dispatch, getState) => {
 
  
 
-    const { data } = await axios.get(`${URL}/api/v1/orders/`);
+    const { data } = await axios.get(`/orders/`);
     dispatch({
       type: ORDER_LIST_MY_SUCCESS,
       payload: data,
@@ -121,9 +113,7 @@ export const listMyOrderAction = () => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
-    }
+   
     dispatch({
       type: ORDER_LIST_MY_FAIL,
       payload: message,
@@ -139,7 +129,7 @@ export const deleteOrderAction = (id) => async (dispatch, getState) => {
 
 
 
-    const { data } = await axios.delete(`${URL}/api/v1/orders/${id}`);
+    const { data } = await axios.delete(`/orders/${id}`);
     dispatch({
       type: ORDER_DELETE_SUCCESS,
       payload: data,
@@ -149,9 +139,7 @@ export const deleteOrderAction = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
-    }
+   
     dispatch({
       type: ORDER_DELETE_FAIL,
       payload: message,

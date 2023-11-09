@@ -37,11 +37,11 @@ export default function ContactInfo() {
   ];
 
   return (
-    <Box as="section" py="14" px={{ base: "4", md: "8" }} mt={100}>
+    <Box as="section"px={{ base: "4", md: "8" }} mt={20}>
       <Flex align="center" justify="center">
         <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: "6", md: "12" }}>
-          {headingInfo.map((item) => (
-            <VStack gap="15px" border="2px dashed #333" borderRadius={10} p={5}>
+          {headingInfo.map((item, index) => (
+            <VStack gap="15px" border="2px dashed #333" borderRadius={10} p={5}  key={index}>
               <Center className="info-image">{item.icon}</Center>
               <Heading
                 as="h3"

@@ -13,6 +13,7 @@ import {
   userLoginReducer,
   userRegisterReducer,
   userUpdateProfileReducer,
+  userUpdateAvatarReducer,
 } from "./reducers/UserReducers";
 import {
   getOrderDetailReducer,
@@ -33,10 +34,12 @@ const reducer = combineReducers({
   // CART
   cart: cartReducer,
   // USERS
-  userLogin: userLoginReducer,
+  userLogin:(userLoginReducer) ,
   userRegister: userRegisterReducer,
   userDetails: userDetailReducer,
   userUpdate: userUpdateProfileReducer,
+  updateAvatar: userUpdateAvatarReducer,
+  
   // MY ORDERS
   orderCreate: orderCreateReducer,
   orderDetails: getOrderDetailReducer,
@@ -71,6 +74,9 @@ const initialState = {
   userLogin: {
     userInfo: userInfoFromLocalStorage,
   },
+  userDetails:{
+    userInfo:userInfoFromLocalStorage,
+  }
 };
 
 const middleware = [thunk];

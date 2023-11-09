@@ -68,13 +68,14 @@ const Navbar = () => {
             {isDesktop ? (
               <Flex justify="space-between" flex="1">
                 <ButtonGroup variant="link" spacing="8">
-                  {navMenu.map((item) => (
+                  {navMenu.map((item, index) => (
                     <NavLink
+                      key={index}
                       className={({ isActive }) =>
                         isActive ? "link-active" : "link-header"
                       }
                       exact
-                      to={`${item.url}`}
+                      to={`${item?.url}`}
                     >
                       <Text
                         fontSize="15px"
@@ -104,7 +105,7 @@ const Navbar = () => {
                     <DrawerBody>
                       <VStack spacing="8">
                         {navMenu.map((item, index) => (
-                          <Link to={`${item.url}`} key={index}>
+                          <Link to={`${item?.url}`} key={index}>
                             <Text
                               fontSize="20px"
                               fontWeight="600"

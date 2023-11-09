@@ -22,7 +22,6 @@ const Orders = (props) => {
 
 
   const toggleOrderDetails = (order) => {
-    console.log(order)
     if (openOrder === order) {
       setOpenOrder(null);
     } else {
@@ -114,7 +113,7 @@ const Orders = (props) => {
                               openOrder.orderItems.map((orderItem) => (
                                 <div className="openOrder">
                                     <img className="item-order-img" src={orderItem.image}/>
-                                  <Td className="openOrder-element" >
+                                  <Td className="openOrder-element"  style={{width:"300px",  textWrap:"wrap"}}>
                                     {orderItem.name}
                                   
                                   </Td>

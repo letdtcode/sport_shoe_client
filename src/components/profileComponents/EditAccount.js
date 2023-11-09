@@ -38,7 +38,6 @@ export default function EditAccount() {
         ...user, dateOfBirth: `${user.yearOfBirth}-${user.monthOfBirth}-${user.birthday}`
       });
     }
-    console.log(user)
     event.preventDefault()
     const res = await updateInfoRequest(user)
     if (res.status === 200) {
