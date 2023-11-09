@@ -105,9 +105,7 @@ export const productCreateReviewAction =
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message;
-      if (message === "Not authorized, token failed") {
-        dispatch(logout());
-      }
+    
       dispatch({
         type: PRODUCT_CREATE_REVIEW_FAIL,
         payload: message,

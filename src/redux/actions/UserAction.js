@@ -1,5 +1,5 @@
 import axios from "../../services/axios";
-import URL from "../../URL";
+import { updateAvatarRequest, loginUserApi, registerApi, updateProfileRequest } from "../../services/API/usersAPI";
 import { ORDER_LIST_MY_RESET } from "../constants/OrderConstants";
 
 import {
@@ -17,37 +17,25 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_REQUEST,
+  UPDATE_AVATAR_REQUEST,
+  UPDATE_AVATAR_SUCCESS,
+  UPDATE_AVATAR_FAIL,
+  RESET_REGISTER_SUCCESS ,
+  USER_LOGIN_REFRESH,
 } from "../constants/UserContants";
 // USER LOGIN
 export const login = (email, password) => async (dispatch) => {
-  try {
-    dispatch({ type: USER_LOGIN_REQUEST });
-
-    // Using callback Auth headers config to identify json content
-
-
-    // use axios.[POST] to compare user with server's user,
-    const { data } = await axios.post(
-      `${URL}/api/v1/users/login`,
-      { email, password }
-
-    );
-
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-
-    // Update User Info with Server's User in localStorage
-    localStorage.setItem("userInfo", JSON.stringify(data.data));
-    localStorage.setItem("accessToken", JSON.stringify(data.accessToken));
-    localStorage.setItem("refreshToken", JSON.stringify(data.refreshToken));
-  } catch (error) {
-    dispatch({
-      type: USER_LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
+  dispatch({ type: USER_LOGIN_REQUEST });
+  const dataLogin = await loginUserApi(email, password)
+  console.log(dataLogin)
+  if (dataLogin.status === 200) {
+    localStorage.setItem("userInfo", JSON.stringify(dataLogin.data.data))
+    localStorage.setItem("accessToken", JSON.stringify(dataLogin.data.accessToken))
+    localStorage.setItem("refreshToken", JSON.stringify(dataLogin.data.refreshToken))
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: dataLogin.data.data })
+    return
   }
+  dispatch({ type: USER_LOGIN_FAIL, payload: dataLogin.data.message })
 };
 
 export const loginOAuth2 = () => async (dispatch) => {
@@ -69,10 +57,7 @@ export const loginOAuth2 = () => async (dispatch) => {
     .catch((error) => {
       dispatch({
         type: USER_LOGIN_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.response?.data?.message || error.message,
       });
     });
 };
@@ -84,60 +69,34 @@ export const logout = () => async (dispatch) => {
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
-  // Redirect to /login
-  document.location.href = "/login";
-  fetch(`${process.env.REACT_APP_SERVER_URL}/auth/logout`, {
-    withCredentials: true,
-    credentials: "include",
-  })
 };
 
 // REGISTER USER
 export const register = (name, email, password) => async (dispatch) => {
-  try {
-    dispatch({ type: USER_REGISTER_REQUEST });
+  dispatch({ type: USER_REGISTER_REQUEST });
 
-    // Using callback Auth headers config to identify json content
-    
-
-    // use axios.[POST] to compare user with server's user,
-    const { data } = await axios.post(
-      `${URL}/api/v1/users`,
-      { name, email, password }
-    );
-
-    dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: USER_REGISTER_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
+  const dataRegister= await registerApi(name, email, password);
+  if(dataRegister.status=== 201)
+  {
+    dispatch({ type: USER_REGISTER_SUCCESS, payload: dataRegister.data});
+    return 
   }
+  dispatch({ type: USER_REGISTER_FAIL, payload: dataRegister.data.message });
 };
 
 // GET USER DETAILS
 export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
- 
+
     dispatch({ type: USER_DETAILS_REQUEST });
-
-    // Using callback Auth headers config to identify json content
-  
-    const { data } = await axios.get(`${URL}/api/v1/users/${id}`);
-
+    const { data } = await axios.get(`/users/${id}`);
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, no token") {
-    //  dispatch(logout());
-    }
+
     dispatch({
       type: USER_DETAILS_FAIL,
       payload: message,
@@ -149,11 +108,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 export const getUserAuthDetail = (googleId) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_DETAILS_REQUEST });
-
-
-    // Using callback Auth headers config to identify json conten
-
-    // use axios.[POST] to compare user with server's user,
     const { data } = await axios.get(
       `http://localhost:4000/users/${googleId}`
     );
@@ -164,9 +118,7 @@ export const getUserAuthDetail = (googleId) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, no token") {
-      // dispatch(logout());
-    }
+
     dispatch({
       type: USER_DETAILS_FAIL,
       payload: message,
@@ -174,36 +126,50 @@ export const getUserAuthDetail = (googleId) => async (dispatch, getState) => {
   }
 };
 // UPDATE PROFILE
-
 export const updateProfile = (user) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
-
-    // Using callback Auth headers config to identify json content
-
-    // use axios.[PUT] to update user with server's user,
-    console.log(user)
-    const { data } = await axios.put(
-      `${URL}/api/v1/users/profile`,
-      user
-    );
-
+    const data = await updateProfileRequest(user);
     dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
-
-    // * UPDATE STATE AND REFRESH PAGE, payload : [...data]
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
+    dispatch({ type: USER_LOGIN_REFRESH });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, no token") {
-      // dispatch(logout());
-    }
+
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
       payload: message,
     });
   }
 };
+export const updateAvatar = (imageFile) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_AVATAR_REQUEST });
+
+    const response = await updateAvatarRequest(imageFile);
+
+    dispatch({
+      type: UPDATE_AVATAR_SUCCESS,
+      payload: response.data,
+    });
+    const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
+    userInfo.avatarUrl = response.data.avatarUrl;
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+   
+    dispatch({type: USER_LOGIN_REFRESH})
+  } catch (error) {
+
+    dispatch({
+      type: UPDATE_AVATAR_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
+
+export const resetRegisterSuccess = () => ({
+  type: RESET_REGISTER_SUCCESS,
+});

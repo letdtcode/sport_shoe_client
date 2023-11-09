@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileTabs from "../components/profileComponents/ProfileTabs";
 import Orders from "./../components/profileComponents/Orders";
 import { getUserDetails } from "../redux/actions/UserAction";
 import moment from "moment";
 import { listMyOrderAction } from "../redux/actions/OrderAction";
+import UpdateAvatar from "../components/profileComponents/UpdateAvatar";
 import {
   Box,
   Button,
@@ -14,6 +15,10 @@ import {
   Image,
   Link,
   Text,
+  Menu,
+  MenuItem,
+  MenuButton,
+  MenuList
 } from "@chakra-ui/react";
 const ProfileScreen = () => {
   const dispatch = useDispatch();
@@ -22,27 +27,80 @@ const ProfileScreen = () => {
   const myListOrder = useSelector((state) => state.myListOrder);
   const { userInfo } = userLogin;
   const { loading, orders, error } = myListOrder;
-  const timeFormat = moment(userInfo.createdAt).format("LL");
+  const timeFormat = moment(userInfo?.createdAt).format("LL");
 
   useEffect(() => {
     dispatch(listMyOrderAction());
     dispatch(getUserDetails("profile"));
   }, [dispatch]);
 
+
+  const handleViewAvatar = () => {
+
+
+    // Thực hiện hành động xem avatar
+  };
+
+  const handleChangeAvatar = (e) => {
+    e.preventDefault();
+    inputRef.current.click();
+  }
+
+  const [imageFile, setImageFile] = useState(null);
+
+  // preview
+
+
+  // modal state
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // ref to control input element
+  const inputRef = useRef(null);
+
+  // handle Change
+  const handleImgChange = (e) => {
+    setImageFile(e.target.files[0])
+    setModalOpen(true);
+    inputRef.current.value = '';
+  };
+
   return (
-    <>
+    <>  <UpdateAvatar
+          modalOpen={modalOpen}
+          imageFile={imageFile}
+          setModalOpen={setModalOpen}
+          setImageFile={setImageFile}
+
+        />
       <Container className="container mt-lg-5 mt-3" maxW="container.2xl">
+      
         <div className="row align-items-start">
           <Box className="col-lg-3 p-0 shadow" borderRadius="lg">
             <div className="pb-0 pb-md-3">
               <div className="author-card-cover user-info-wrapper "></div>
               <div className="author-card-profile row">
+              <input
+                    hidden
+                    type="file"
+                    accept="image/*"
+                    ref={inputRef}
+                    onChange={handleImgChange}
+                  />
                 <div className="author-card-avatar col-md-5">
-                  <Image src="./images/user.png" alt="userprofileimage" />
+                 
+                  <Menu isLazy>
+                    <MenuButton className="card-avatar">
+                      <Image src={userInfo?.avatarUrl? userInfo.avatarUrl : "./images/user.png" }alt="userprofileimage"  />
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem onClick={handleViewAvatar}>View Avatar</MenuItem>
+                      <MenuItem onClick={handleChangeAvatar}>Change Avatar</MenuItem>
+                    </MenuList>
+                  </Menu>
                 </div>
                 <div className="author-card-details col-md-7">
                   <Heading as="h5" size="md" className="author-card-name mb-2">
-                    <Text fontSize="16px">{userInfo.name}</Text>
+                    <Text fontSize="16px">{userInfo?.name}</Text>
                   </Heading>
                   <span className="author-card-position">
                     <Text>Đã tham gia {timeFormat}</Text>
@@ -83,7 +141,7 @@ const ProfileScreen = () => {
                     Orders List
                     <span className="badge2">{orders ? orders.length : 0}</span>
                   </Button>
-                  {!!userInfo.isAdmin && (
+                  {!!userInfo?.isAdmin && (
                     <Button className="nav-link d-flex justify-content-between">
                       <Link
                         href="https://admin-ecommerce-mern.vercel.app"
@@ -96,6 +154,7 @@ const ProfileScreen = () => {
                 </div>
               </Flex>
             </div>
+
           </Box>
 
           {/* panels */}
@@ -122,6 +181,7 @@ const ProfileScreen = () => {
           </div>
         </div>
       </Container>
+
     </>
   );
 };
