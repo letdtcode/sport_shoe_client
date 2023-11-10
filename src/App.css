@@ -71,7 +71,10 @@ textarea:focus {
 .header {
   padding: 20px 0px 5px 0px;
 }
-
+.navbar-brand{
+  width: 200px;
+  height: 125px;
+}
 .navbar-brand img {
   width: 60%;
 }
@@ -199,15 +202,23 @@ textarea:focus {
 .shopBack {
   height: 320px;
   position: relative;
-  overflow: hidden;
   width: 100%;
+  overflow: visible ;
+  transition: transform 0.3s ease; 
+  text-align: -webkit-center;
   /* background-color: #f3fbf7; */
 }
 
 .shopBack img {
-  width: 100%;
+  width: 300px;
   height: 300px;
-  object-fit: contain;
+  border-radius: 5px;
+  object-fit: cover;
+}
+.shopBack img:hover {
+  border-radius: 5px;
+  transform: scale(1.1); 
+  transition: transform 0.3s ease; 
 }
 
 .shoptext {
@@ -599,6 +610,16 @@ textarea:focus {
   width: 100%;
 }
 
+.button-orderid{
+    background-color: #3167eb;
+    color: #FFF;
+    border-radius: 5px;
+    padding: 5px;
+}
+.button-orderid:hover{
+  background-color: #2d5acd;
+  color: #FFF;
+}
 /* toggleOrderDetails */
 .openOrder {
   display: flex;
@@ -621,9 +642,13 @@ textarea:focus {
 .item-order-button {
   background-color: #00ff00 !important;
   color: #fff !important;
-  height: 30px;
+  height: max-content ;
+  padding: 5px;
   text-align: center;
   border-radius: 5px;
+}
+.item-order-button:hover{
+  background-color: #0da40dbe !important;
 }
 
 /* CART */
@@ -816,7 +841,7 @@ textarea:focus {
 }
 
 .page-item.active .page-link {
-  background-color: black;
+  /* background-color: black; */
   border: 1px solid black;
 }
 
@@ -1730,6 +1755,38 @@ a[class*="card"]:hover .title {
   margin-bottom: 4px;
 }
 
-.button-cancel {}
+.border-product {
+  position: relative;
+  overflow: hidden;
+}
+ 
 
-.button-save {}
+@keyframes borderAnimation {
+  0% {
+    border-color: #ff0000; /* Start color */
+  }
+  25% {
+    border-color: #00ff00; /* 25% of the animation */
+  }
+  50% {
+    border-color: #0000ff; /* 50% of the animation */
+  }
+  75% {
+    border-color: #ff00ff; /* 75% of the animation */
+  }
+  100% {
+    border-color: #ff0000; /* End color, same as the start color for a loop */
+  }
+}
+
+/* Apply the animation to the border-product class */
+.border-product:hover {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent; /* Set a default border */
+  animation: borderAnimation 5s linear infinite; /* Adjust the duration as needed */
+}
+
+.css-3u9me0{
+  background-color: #3167eb!important;
+}

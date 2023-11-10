@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import {
   Badge,
   Table,
@@ -63,8 +64,8 @@ const Orders = (props) => {
                     <>
                       <Tr key={order._id}>
                         <Td>
-                          <a href={`/order/${order._id}`} className="link">
-                            {order._id}
+                          <a href={`/order/${order._id}`} className="button-orderid">
+                              Order detail
                           </a>
                         </Td>
                         <Td>

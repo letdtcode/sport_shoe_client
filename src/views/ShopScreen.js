@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryListAllAction } from "../redux/actions/CategoryAction";
 import ShopProduct from "../components/Shop/ShopProduct";
 import Pagination from "react-js-pagination";
-import { getFilteredProducts } from ".././redux/actions/ProductAction";
+import { getFilteredProducts, listProduct } from ".././redux/actions/ProductAction";
 import CheckboxCategoryFilter from "../components/Shop/Checkbox";
 import { prices } from "../components/Shop/PriceChart";
 import { Box, Heading, Select, Stack } from "@chakra-ui/react";
@@ -16,10 +16,12 @@ const ShopScreen = () => {
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
 
+
   const { loading, error, products } = productList;
   const [myFilters, setMyFilters] = useState({
     filters: { category: [], price: [] },
   });
+
   // eslint-disable-next-line
   const [limit, setLimit] = useState(100);
   // eslint-disable-next-line
@@ -74,10 +76,18 @@ const ShopScreen = () => {
   };
   useEffect(() => {
     init();
-    loadFilteredResults(skip, limit, myFilters.filters);
+    console.log(keyword)
+    if (keyword!== undefined){
+      dispatch(listProduct(keyword));
+    }
+    else
+    {
+      loadFilteredResults(skip, limit, myFilters.filters);
+    }
     // eslint-disable-next-line
   }, []);
 
+  const { keyword } = useParams()
   return (
     <>
       <section className="section-pagetop bg mt-5 container-fluid">
