@@ -27,7 +27,6 @@ import {
 export const login = (email, password) => async (dispatch) => {
   dispatch({ type: USER_LOGIN_REQUEST });
   const dataLogin = await loginUserApi(email, password)
-  console.log(dataLogin)
   if (dataLogin.status === 200) {
     localStorage.setItem("userInfo", JSON.stringify(dataLogin.data.data))
     localStorage.setItem("accessToken", JSON.stringify(dataLogin.data.accessToken))

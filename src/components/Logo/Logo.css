@@ -1,0 +1,262 @@
+.svg-container {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.svg-logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.shoe-base {
+  animation: 500ms shoe-base ease-in 1 alternate forwards;
+  stroke-dasharray: 979, 979;
+  stroke-dashoffset: 979;
+  opacity: 0; 
+}
+
+.guy-chan {
+  animation: 500ms guy-chan ease-in 500ms 1 alternate forwards;
+  stroke-dasharray: 387, 387;
+  stroke-dashoffset: 387;
+  opacity: 0;
+}
+
+.suede-1 {
+  animation: 500ms suede ease-in 1000ms 1 alternate forwards;
+  stroke-dasharray: 410, 410;
+  stroke-dashoffset: 410;
+  opacity: 0;
+}
+
+.sep-low {
+  animation: 500ms sep-low ease-in 1000ms 1 alternate forwards;
+  stroke-dasharray: 221, 221;
+  stroke-dashoffset: 221;
+  opacity: 0;
+} 
+
+.suede-2 {
+  animation: 500ms suede-5 ease-in 1500ms 1 alternate forwards;
+  stroke-dasharray: 96, 96;
+  stroke-dashoffset: 96;
+  opacity: 0;
+} 
+
+.sep-top {
+  animation: 500ms sep-top ease-in 1500ms 1 alternate forwards;
+  stroke-dasharray: 155, 155;
+  stroke-dashoffset: 155;
+  opacity: 0;
+}
+
+.tongue {
+  animation: 500ms tongue ease-in 2000ms 1 alternate forwards;
+  stroke-dasharray: 258, 258;
+  stroke-dashoffset: 258;
+  opacity: 0;
+}
+
+.lace-1 {
+  animation: 500ms laces ease-in 2500ms 1  forwards; 
+  stroke-dasharray: 228, 228; 
+  stroke-dashoffset: 228;
+  opacity: 0;
+} 
+
+.lace-2 {
+  animation: 500ms laces ease-in 2750ms 1  forwards; 
+  stroke-dasharray: 228, 228; 
+  stroke-dashoffset: 228;
+  opacity: 0;
+} 
+
+.lace-3 {
+  animation: 500ms laces ease-in 3000ms 1  forwards; 
+  stroke-dasharray: 228, 228; 
+  stroke-dashoffset: 228;
+  opacity: 0;
+} 
+
+.lace-4 {
+  animation: 500ms laces ease-in 3250ms 1  forwards; 
+  stroke-dasharray: 228, 228; 
+  stroke-dashoffset: 228;
+  opacity: 0;
+} 
+
+.loop {
+  animation: 500ms loop ease-in 2500ms 1 alternate forwards;
+  stroke-dasharray: 73, 73;
+  stroke-dashoffset: 73;
+  opacity: 0;
+}
+
+.heel {
+  animation: 1000ms heel ease-in 3000ms 1  forwards; 
+  stroke-dasharray: 298, 298;
+  stroke-dashoffset: 298;
+  opacity: 0;
+} 
+
+.bubble {
+  animation: 500ms bubble ease-in 3000ms 1  forwards; 
+  stroke-dasharray: 306, 306;
+  stroke-dashoffset: 306;
+  opacity: 0;
+}
+
+.nike {
+  animation: 500ms nike ease-in 3750ms 1  forwards; 
+  stroke-dasharray: 282, 282;
+  stroke-dashoffset: 282;
+  opacity: 0;
+}
+
+.tada {
+  animation-delay: 4500ms;
+}
+
+@keyframes nike {
+  0% {
+    stroke-dashoffset: 282;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes laces {
+  0% {
+    stroke-dashoffset: 228;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes bubble {
+  0% {
+    stroke-dashoffset: 306;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+} 
+
+@keyframes heel {
+  0% {
+    stroke-dashoffset: -298;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+} 
+
+@keyframes loop {
+  0% {
+    stroke-dashoffset: 73;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes tongue {
+  0% {
+    stroke-dashoffset: -258;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes sep-top {
+  0% {
+    stroke-dashoffset: 155;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes suede-5 {
+  0% {
+    stroke-dashoffset: 96;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes sep-low {
+  0% {
+    stroke-dashoffset: 221;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes suede {
+  0% {
+    stroke-dashoffset: -410;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes guy-chan {
+  0% {
+    stroke-dashoffset: 387;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes shoe-base {
+  0% {
+    stroke-dashoffset: 979;
+    opacity: 0;
+  }
+  100%{
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+} 
+ 

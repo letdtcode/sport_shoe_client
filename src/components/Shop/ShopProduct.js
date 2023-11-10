@@ -101,7 +101,7 @@ const ShopProduct = (props) => {
                       }}
                     >
                       <Flex align="center">
-                        <BsCartPlus size="20px" className="mx-1" />
+                        <BsCartPlus size="20px" className="mx-1" style={{backgroundColor:"#3167eb"}} />
                         Add to cart
                       </Flex>
                     </CartButton>

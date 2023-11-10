@@ -23,7 +23,7 @@ const ShopSection = () => {
   const { loading, error, products } = productList;
 
   useEffect(() => {
-    dispatch(listProduct());
+    dispatch(listProduct({keywword:"Nike"}));
   }, [dispatch]);
 
   return (

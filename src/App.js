@@ -42,7 +42,7 @@ const App = () => {
           <HomeRouter path="/cartitem" component={CartItem} />
           <PrivateRouter path="/dat-hang" component={PlaceOrder} />
           <PrivateRouter path="/order/:id" component={OrderScreen} />
-
+          <HomeRouter path="/search/:keyword" component={ShopScreen} />
           <HomeRouter path="*" component={NotFound} />
         </Switch>
       </Router>

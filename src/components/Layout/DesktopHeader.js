@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import { logout } from "../../redux/actions/UserAction";
 import { CiUser } from "react-icons/ci";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import LogoComponent from "../Logo/Logo";
 const DesktopHeader = (props) => {
   const { userInfo, keyword, setKeyword, cartItems, dispatch } = props;
   const logoutHandler = (e) => {
@@ -25,7 +26,8 @@ const DesktopHeader = (props) => {
     <div className="row ">
       <div className="col-md-2 col-6 d-flex align-items-center">
         <Link className="navbar-brand" to="/">
-          <img alt="logo" src="/images/logo.png" />
+          {/* <img alt="logo" src="/images/logo.png" /> */}
+          <LogoComponent/>
         </Link>
       </div>
       <div className="col-md-6 col-8 d-flex align-items-center">
