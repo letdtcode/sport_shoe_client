@@ -29,7 +29,7 @@ const Description = (props) => {
               <AccordionIcon />
             </AccordionButton>
           </Heading>
-          <AccordionPanel pb={4}>{product.description}</AccordionPanel>
+          <AccordionPanel pb={4}>{product?.description}</AccordionPanel>
         </AccordionItem>
 
         <AccordionItem>

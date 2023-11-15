@@ -76,7 +76,6 @@ const ShopScreen = () => {
   };
   useEffect(() => {
     init();
-    console.log(keyword)
     if (keyword!== undefined){
       dispatch(listProduct(keyword));
     }

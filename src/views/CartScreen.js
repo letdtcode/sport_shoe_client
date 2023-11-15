@@ -14,8 +14,9 @@ const CartScreen = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+
   // Calculate total product prices
-  const total = cartItems.reduce((a, b) => a + b.qty * b.price, 0).toFixed(2);
+  const total = cartItems.reduce((a, b) => a + b.qty * b.product.price, 0).toFixed(2);
 
   // address side-effect when cart added
   useEffect(() => {

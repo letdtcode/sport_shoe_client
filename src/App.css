@@ -432,8 +432,36 @@ textarea:focus {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 15px;
+
 }
 
+.add-to-card-btn{
+  background: #f57224;
+  color: #fff;
+  height: 44px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+.add-to-card-btn:hover{
+  background: #f95b00fb;
+}
+.add-to-card-btn:disabled{
+  background: #dfdad7;
+  color: #fff;
+}
+.btn-checkout{
+  background: #43f524;
+  color: #fff;
+  height: 44px;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px;
+  font-weight: 600;
+}.btn-checkout:hover{
+  color: #fff;
+  background: #33f411;
+}
 .round-black-btn:hover,
 .round-black-btn:focus {
   background: #333;
@@ -1789,4 +1817,45 @@ a[class*="card"]:hover .title {
 
 .css-3u9me0{
   background-color: #3167eb!important;
+}
+
+.box-selected{
+  overflow: visible;
+  cursor: pointer;
+  min-width: 5rem;
+  min-height: 2.5rem;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  margin: 8px 8px 0 0;
+  color: #EE4D2D;
+  text-align: left;
+  border-radius: 2px;
+  border: 1px solid #EE4D2D;
+  position: relative;
+  background: #fff;
+  outline: 0;
+  word-break: break-word;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.box-select{
+  overflow: visible;
+  cursor: pointer;
+  min-width: 5rem;
+  min-height: 2.5rem;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  margin: 8px 8px 0 0;
+  color: rgba(0,0,0,.8);
+  text-align: left;
+  border-radius: 2px;
+  border: 1px solid rgba(0,0,0,.09);
+  position: relative;
+  background: #fff;
+  outline: 0;
+  word-break: break-word;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

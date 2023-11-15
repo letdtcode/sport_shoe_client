@@ -28,10 +28,10 @@ export const login = (email, password) => async (dispatch) => {
   dispatch({ type: USER_LOGIN_REQUEST });
   const dataLogin = await loginUserApi(email, password)
   if (dataLogin.status === 200) {
-    localStorage.setItem("userInfo", JSON.stringify(dataLogin.data.data))
+    localStorage.setItem("userInfo", JSON.stringify(dataLogin.data.userInfo))
     localStorage.setItem("accessToken", JSON.stringify(dataLogin.data.accessToken))
     localStorage.setItem("refreshToken", JSON.stringify(dataLogin.data.refreshToken))
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: dataLogin.data.data })
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: dataLogin.data.userInfo })
     return
   }
   dispatch({ type: USER_LOGIN_FAIL, payload: dataLogin.data.message })

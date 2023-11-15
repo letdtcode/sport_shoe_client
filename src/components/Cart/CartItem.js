@@ -30,9 +30,9 @@ const CartItem = (props) => {
   };
 
   // Remove product Handler
-  const removeCartHandler = (id) => {
+  const removeCartHandler = (id, typeSelect) => {
     // TODO
-    dispatch(removeFromCart(id));
+    dispatch(removeFromCart(id, typeSelect));
   };
   return (
     <>
@@ -57,6 +57,9 @@ const CartItem = (props) => {
                     <Tr className="small text-uppercase">
                       <Th scope="col">Product</Th>
                       <Th scope="col" width={140}>
+                        Type
+                      </Th>
+                      <Th scope="col" width={140}>
                         Quantity
                       </Th>
                       <Th scope="col" width={100} textAlign="center">
@@ -68,74 +71,65 @@ const CartItem = (props) => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {cartItems.map((item) => (
-                      <Tr key={item._id}>
+                    {cartItems.map((item, index) => (
+                      
+                      <Tr key={index}>
                         <Td>
                           <Flex className="itemside">
                             <Link
                               className="aside mx-3"
-                              to={`/products/${item.product}`}
+                              to={`/products/${item.product.id}`}
                             >
                               <img
-                                src={item.image}
-                                alt={item.name}
+                                src={item.product.image}
+                                alt={item.product.productName}
                                 className="img-sm"
                               />
                             </Link>
                             <Box className="info">
-                              <Link to={`/products/${item.product}`}>
+                              <Link to={`/products/${item.product.product}`}>
                                 <Text size="lg" className="title text-dark">
-                                  {item.name}
+                                  {item.product.productName}
                                 </Text>
                               </Link>
                               <Text size="sm" className="text-muted small">
-                                Brand: {item.category.name}
+                                Brand: {item.product.categoryName}
                               </Text>
                             </Box>
                           </Flex>
                         </Td>
-                        {/* <Td>
-                          <Select
-                            value={item.qty}
-                            onChange={(e) =>
-                              dispatch(
-                                addToCart(item.product, Number(e.target.value))
-                              )
-                            }
-                          >
-                            {[...Array(item.countInStock).keys()].map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
-                          </Select>
-                        </Td> */}
-
+                     
+                        <Td className="center">
+                        <div className="type-control">
+                          {item.typeSelect.color} - {item.typeSelect.size}
+                        </div>
+                        </Td>
                         <Td className="center">
                           <div className="quantity-control">
                             <Button
                               onClick={() => {      
-                                if (item.qty < item.countInStock) {
-                                  dispatch(addToCart(item.product, item.qty + 1));
+                                if (item.qty < item.typeSelect.countInStock) {
+                                  dispatch(addToCart(item.product.id, item.qty + 1,  item.typeSelect));
                                 }
                               }}
                             >
                               +
                             </Button>
                             <Input
+                              width={50}
                               type="number"
                               value={item.qty}
                               min={0}
                               max={item.countInStock}
                               onChange={(e) => {
-                                const newValue = Math.min(Math.max(0, e.target.value), item.countInStock);
-                                dispatch(addToCart(item.product, Number(newValue)));
+                                const newValue = Math.min(Math.max(0, e.target.value), item.typeSelect.countInStock);
+                                dispatch(addToCart(item.product.id, newValue, item.typeSelect));
                               }}
                             />
                             <Button
                               onClick={() => {
-                                if (item.qty > 0) {
-                                  dispatch(addToCart(item.product, item.qty - 1));
+                                if (item.qty > 1) {
+                                  dispatch(addToCart(item.product.id, item.qty - 1,  item.typeSelect));
                                 }
                               }}
                             >
@@ -154,7 +148,7 @@ const CartItem = (props) => {
                         <Td textAlign="center">
                           <Button
                             colorScheme="red"
-                            onClick={() => removeCartHandler(item.product)}
+                            onClick={() => removeCartHandler(item.product.id, item.typeSelect)}
                           >
                             Remove
                           </Button>
@@ -207,7 +201,7 @@ const CartItem = (props) => {
                   {total > 0 && (
                     <Link
                       to="#"
-                      className="btn btn-dark"
+                      className="btn-checkout"
                       onClick={checkOutHandler}
                     >
                       Checkout now <i className="fa fa-chevron-right" />

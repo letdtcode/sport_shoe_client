@@ -17,25 +17,29 @@ export const cartReducer = (state = stateDefault, action) => {
     case CART_ADD_ITEM:
       const item = action.payload;
       const existItem = state.cartItems.find(
-        (match) => match.product === item.product
+        (match) => match.product.id === item.product.id && match.typeSelect.color === item.typeSelect.color && match.typeSelect.size === item.typeSelect.size 
       );
-      if (existItem) {
+      if (existItem) return {
+        ...state,
+        cartItems: state.cartItems.map((x) =>
+          x.product === existItem.product ? item : x
+        ),
+      };
+
+
+      else {
+      
         return {
           ...state,
-          cartItems: state.cartItems.map((x) =>
-            x.product === existItem.product ? item : x
-          ),
-        };
-      } else {
-        return {
-          ...state,
-          cartItems: [...state.cartItems, item],
+          cartItems: [...state.cartItems, action.payload],
         };
       }
+
     case CART_REMOVE_ITEM:
+      console.log(action.payload)
       return {
         ...state,
-        cartItems: state.cartItems.filter((x) => x.product !== action.payload),
+        cartItems: state.cartItems.filter((x) => x.product.id !== action.payload.id || x.typeSelect!== action.payload.typeSelect  ),
       };
     case CART_SAVE_SHIPPING_ADDRESS:
       return {
