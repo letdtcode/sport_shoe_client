@@ -85,7 +85,7 @@ const RatingDetail = (props) => {
                   ))}
                 </div>
                 {
-                  product.allowReview ===true  && (<form className="col-md-6" onSubmit={submitHandler}>
+                  product?.allowReview ===true  && (<form className="col-md-6" onSubmit={submitHandler}>
                     <Heading as="h6" size="md" textTransform="uppercase">
                       Write rating & review product
                     </Heading>
@@ -135,7 +135,7 @@ const RatingDetail = (props) => {
               </div>
             </TabPanel>
             <TabPanel>
-              <Text fontSize="16px">{product.description}</Text>
+              <Text fontSize="16px">{product?.description}</Text>
             </TabPanel>
           </TabPanels>
         </Tabs>
@@ -187,7 +187,7 @@ const RatingDetail = (props) => {
                 </div>
               </TabPanel>
               <TabPanel>
-                <Text fontSize="16px">{product.description}</Text>
+                <Text fontSize="16px">{product?.description}</Text>
               </TabPanel>
             </TabPanels>
           </Tabs>
