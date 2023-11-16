@@ -1,5 +1,3 @@
-import axios from "../../services/axios";
-import URL from "../../URL";
 import {
   FILTER_LIST_FAIL,
   FILTER_LIST_REQUEST,
@@ -15,7 +13,6 @@ import {
   PRODUCT_LIST_SUCCESS,
 } from "../constants/ProductConstants";
 import * as productApi from "../../services/API/productAPI";
-import { logout } from "./UserAction";
 
 // [GET] ALL PRODUCT
 export const listProduct =
@@ -107,10 +104,7 @@ export const productCreateReviewAction =
     } catch (error) {
       dispatch({
         type: PRODUCT_LIST_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload:error.response?.data?.message || error.message,
       });
     }
   };

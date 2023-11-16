@@ -6,7 +6,7 @@ const instance = axios.create({
   baseURL: (`${URL}/api/v1/`),
   timeout: 50000,
   validateStatus: function (status) {
-    return status >= 200 && status <400;
+    return status >= 200 && status < 400;
   },
 });
 instance.interceptors.request.use(
@@ -27,21 +27,23 @@ instance.interceptors.response.use(
     return res;
   },
   async (error) => {
-    const originalRequest = error.config;
-    if ((error.response.status === 401 || error.response.status=== 500) && !originalRequest._retry) {
-      originalRequest._retry = true;
-     
-      try {
-        const refreshToken = getRefreshToken();
-        const response = await axios.post(`${URL}/api/v1/users/refresh_token`, {refreshToken:refreshToken });
-        const acessToken = response.data.accessToken;
-        updateToken(acessToken);
+    const originalConfig = error.config;
+    if (originalConfig.url !== "/user/signin" && error.response) {
+      if ((error.response.status === 401 || error.response.status === 500) && !originalConfig._retry) {
+        originalConfig._retry = true;
 
-        originalRequest.headers["Authorization"] = `Bearer ${acessToken}`;
-        return axios(originalRequest);
-      } catch (refreshError) {
-        console.error("Refresh token failed", refreshError);
-        return Promise.reject(refreshError);
+        try {
+          const refreshToken = getRefreshToken();
+          const response = await axios.post(`${URL}/api/v1/users/refresh_token`, { refreshToken: refreshToken });
+          const acessToken = response.data.accessToken;
+          updateToken(acessToken);
+
+          originalConfig.headers["Authorization"] = `Bearer ${acessToken}`;
+          return axios(originalConfig);
+        } catch (refreshError) {
+          console.error("Refresh token failed", refreshError);
+          return Promise.reject(refreshError);
+        }
       }
     }
 
