@@ -4,6 +4,7 @@ import Message from "../LoadingError/Error";
 import { Link } from "react-router-dom";
 import {
   Box,
+  Button,
   Heading,
   Tab,
   TabList,
@@ -85,7 +86,7 @@ const RatingDetail = (props) => {
                   ))}
                 </div>
                 {
-                  product?.allowReview ===true  && (<form className="col-md-6" onSubmit={submitHandler}>
+                  product?.allowReview === true && (<form className="col-md-6" onSubmit={submitHandler}>
                     <Heading as="h6" size="md" textTransform="uppercase">
                       Write rating & review product
                     </Heading>
@@ -166,20 +167,25 @@ const RatingDetail = (props) => {
                         No any reviews
                       </Message>
                     )}
-                    {product?.reviews?.map((review) => (
+                    {product?.reviews?.map((reviewId) => (
+
                       <Box
                         className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded-0"
-                        key={review._id}
-                      >
+                        key={reviewId._id}
+                      >  
+                      <button
+                        onClick={()=>(console.log(reviewId))}>
+                          Test
+                        </button>
                         <Text fontSize="lg" fontWeight="bold">
-                          {review.name}
+                          {reviewId.name}
                         </Text>
-                        <Rating value={review.rating} />
+                        <Rating value={reviewId.rating} />
                         <Text fontSize="14px" fontWeight="light">
-                          {moment(review.createdAt).calendar()}
+                          {moment(reviewId.createdAt).calendar()}
                         </Text>
                         <Text fontSize="16px" className="alert alert-info mt-3">
-                          {review.comment}
+                          {reviewId.comment}
                         </Text>
                       </Box>
                     ))}
