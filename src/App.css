@@ -1139,6 +1139,9 @@ a[class*="card"]:hover .title {
 .card-product-grid {
   margin-bottom: 20px;
 }
+.card-product-grid:hover{
+  border: 3px solid #3E89F9;
+}
 
 .card-product-grid .img-wrap {
   height: 220px;
@@ -1816,7 +1819,12 @@ a[class*="card"]:hover .title {
 }
 
 .css-3u9me0{
-  background-color: #3167eb!important;
+  background-color: #277dfd!important;
+  color: #fff!important;
+}
+.css-3u9me0:hover{
+  background-color: #0048ff!important;
+ 
 }
 
 .box-selected{
@@ -1858,4 +1866,14 @@ a[class*="card"]:hover .title {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.avatar{
+  height: 35px!important;
+  width: 35px!important;
+}
+.dropdown-toggle{
+  text-align: center;
+  padding: 5px;
+  padding-right: 30px;
 }
