@@ -1,4 +1,4 @@
-import { Flex, HStack } from "@chakra-ui/react";
+import { Avatar, Flex, HStack, Img } from "@chakra-ui/react";
 import React from "react";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { Link, useHistory } from "react-router-dom";
@@ -27,7 +27,7 @@ const DesktopHeader = (props) => {
       <div className="col-md-2 col-6 d-flex align-items-center">
         <Link className="navbar-brand" to="/">
           {/* <img alt="logo" src="/images/logo.png" /> */}
-          <LogoComponent/>
+          <LogoComponent />
         </Link>
       </div>
       <div className="col-md-6 col-8 d-flex align-items-center">
@@ -55,9 +55,10 @@ const DesktopHeader = (props) => {
         {userInfo ? (
           <div className="btn-group">
             <ul className="nav nav-pills">
-              <li className="nav-item dropdown">
+              <li className="nav-item dropdown" style={{ display: "flex" }}>
+                <Avatar className="avatar" src={userInfo.avatarUrl?userInfo.avatarUrl: "./images/user.png"  }  />
                 <div
-                  className="nav-link dropdown-toggle name-button text-dark"
+                  className="nav-link dropdown-toggle text-dark"
                   data-bs-toggle="dropdown"
                 >
                   Hi,{" "}

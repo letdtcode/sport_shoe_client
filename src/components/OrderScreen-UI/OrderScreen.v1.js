@@ -51,6 +51,7 @@ const OrderScreen = ({ match }) => {
   const orderDelete = useSelector((state) => state.orderDelete);
   const { success: successDelete } = orderDelete;
   const { loading: loadingPay, success: successPay } = orderPay;
+  console.log(order)
 
   //* Address loading event to catching itemsPrice when clicked continue in cart!! Very Important
   if (!loading) {
@@ -59,7 +60,7 @@ const OrderScreen = ({ match }) => {
     };
 
     order.itemsPrice = addDecimals(
-      order.orderItems.reduce((a, b) => a + b.qty * b.price, 0)
+      order.orderItems.reduce((a, b) => a + b.qty * b.product.price, 0)
     );
   }
 

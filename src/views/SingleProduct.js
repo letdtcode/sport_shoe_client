@@ -15,7 +15,6 @@ import {
   Heading,
   Icon,
   Image,
-  Select,
   Stack,
   Text,
   useToast,
