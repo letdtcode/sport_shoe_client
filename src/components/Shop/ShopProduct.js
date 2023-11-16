@@ -73,12 +73,12 @@ const ShopProduct = (props) => {
                     NEW
                   </Badge>
                   <Link to={`/products/${item._id}`} className="img-wrap">
-                    <Image src={item.image} objectFit="cover" alt={item.name} />
+                    <Image src={item.image} objectFit="cover" alt={item.productName} />
                   </Link>
                   <figcaption className="info-wrap">
                     <div className="fix-height">
                       <Link to={`/products/${item._id}`} className="title">
-                        {item.name}
+                        {item.productName}
                       </Link>
                       <Text className="price">${item.price}</Text>
                       {/* <del className="price-old">$1980</del> */}
