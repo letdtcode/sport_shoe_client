@@ -61,9 +61,8 @@ const PlaceOrder = ({ history }) => {
     );
   };
   useEffect(() => {
+    console.log(order)
     if (success) {
-      console.log(order)
-      return
       history.push(`/order/${order._id}`);
       dispatch({ type: ORDER_CREATE_RESET });
     }
@@ -180,10 +179,8 @@ const PlaceOrder = ({ history }) => {
                       </div>
                       <Flex className="card-body border-top" justify="end">
                         {cart.cartItems.length === 0 ? null : (
-                          <button type="submit" onClick={placeOrderHandler}>
-                            <Link className="text-light btn btn-dark">
+                          <button type="submit" className="btn-checkout" onClick={placeOrderHandler}>                          
                               Confirm order
-                            </Link>
                           </button>
                         )}
                       </Flex>
