@@ -29,15 +29,15 @@ instance.interceptors.response.use(
   async (err) => {
     const originalConfig = err.config;
 
-    if (originalConfig.url !== "/user/signin" && err.response) {
+    if (originalConfig.url !== "/login" && err.response) {
       if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
 
         try {
-          const rs = await instance.post("/user/refresh-token", {
+          const rs = await instance.post("/users/refresh_token", {
             refreshToken: getRefreshToken(),
           });
-          const { accessToken } = rs.data;
+          const { accessToken } = rs.data.accessToken;
           updateToken(accessToken);
           return instance(originalConfig);
         } catch (_error) {

@@ -205,7 +205,7 @@ const OrderScreen = ({ match }) => {
                                         className="title"
                                       >
                                         <Link
-                                          to={`/products/${item._id}`}
+                                          to={`/products/${item.product}`}
                                           target="_blank"
                                         >
                                           {item.name}
@@ -219,13 +219,24 @@ const OrderScreen = ({ match }) => {
                                         </li> */}
                                         <li>
                                           <Text fontSize="14px">
-                                            {item.qty} X {item.price}
+                                            {item.typeProduct.quantity} X {item.price}$
                                           </Text>
                                         </li>
+                                      </ul>
+                                      <ul>
+                                        <Text fontSize="14px">
+                                          Color: {item.typeProduct.color}
+                                        </Text>
+                                      </ul>
+                                      <ul>
+                                        <Text fontSize="14px">
+                                          Size: {item.typeProduct.size}
+                                        </Text>
                                       </ul>
                                     </div>
                                   </div>
                                 </Td>
+
                                 <Td className="price">
                                   <Text
                                     fontSize="14px"

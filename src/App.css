@@ -654,6 +654,7 @@ textarea:focus {
 }
 
 .openOrder-element {
+  font-size: 13px;
   width: 125px;
 }
 
