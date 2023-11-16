@@ -23,8 +23,6 @@ export const createOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_CREATE_REQUEST });
 
-   
-
     const { data } = await axios.post(`/orders`, order);
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
     dispatch({ type: CART_CLEAR_ITEMS, payload: data });
@@ -34,7 +32,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-   
+
     dispatch({
       type: ORDER_CREATE_FAIL,
       payload: message,
@@ -47,7 +45,6 @@ export const getOrder = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
 
-
     const { data } = await axios.get(`/orders/${id}`);
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -55,7 +52,7 @@ export const getOrder = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-  
+
     dispatch({
       type: ORDER_DETAILS_FAIL,
       payload: message,
@@ -71,11 +68,7 @@ export const payOrder =
         type: ORDER_PAY_REQUEST,
       });
 
-    
-      const { data } = await axios.put(
-        `/orders/${orderId}/pay`,
-        paymentResult
-      );
+      const { data } = await axios.put(`/orders/${orderId}/pay`, paymentResult);
 
       dispatch({
         type: ORDER_PAY_SUCCESS,
@@ -86,7 +79,7 @@ export const payOrder =
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message;
-    
+
       dispatch({
         type: ORDER_PAY_FAIL,
         payload: message,
@@ -101,8 +94,6 @@ export const listMyOrderAction = () => async (dispatch, getState) => {
       type: ORDER_LIST_MY_REQUEST,
     });
 
- 
-
     const { data } = await axios.get(`/orders/`);
     dispatch({
       type: ORDER_LIST_MY_SUCCESS,
@@ -113,7 +104,7 @@ export const listMyOrderAction = () => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-   
+
     dispatch({
       type: ORDER_LIST_MY_FAIL,
       payload: message,
@@ -127,8 +118,6 @@ export const deleteOrderAction = (id) => async (dispatch, getState) => {
       type: ORDER_DELETE_REQUEST,
     });
 
-
-
     const { data } = await axios.delete(`/orders/${id}`);
     dispatch({
       type: ORDER_DELETE_SUCCESS,
@@ -139,7 +128,7 @@ export const deleteOrderAction = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-   
+
     dispatch({
       type: ORDER_DELETE_FAIL,
       payload: message,

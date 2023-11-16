@@ -4,19 +4,23 @@ import { addToCart } from "../redux/actions/CartAction";
 import CartItem from "../components/Cart/CartItem";
 import { Container, Flex, Image, Link, Stack } from "@chakra-ui/react";
 import { IoReturnDownBackOutline } from "react-icons/io5";
+
 const CartScreen = ({ match, location, history }) => {
   // keep window screen always top
   const dispatch = useDispatch();
   const productId = match.params.id;
   // Finding URL contain " = "
+  console.log(productId);
   const qty = location.qty;
   // Update Cart
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-
+  console.log(cartItems);
 
   // Calculate total product prices
-  const total = cartItems.reduce((a, b) => a + b.qty * b.product.price, 0).toFixed(2);
+  const total = cartItems
+    .reduce((a, b) => a + b.qty * b.product.price, 0)
+    .toFixed(2);
 
   // address side-effect when cart added
   useEffect(() => {
@@ -39,7 +43,7 @@ const CartScreen = ({ match, location, history }) => {
                     alt="not-found"
                     className="my-5"
                   />
-                
+
                   <Link href="/shop" color="black">
                     <Flex align="center" gap={2} justify="center">
                       <IoReturnDownBackOutline size={20} />

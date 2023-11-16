@@ -48,7 +48,7 @@ export const userLoginReducer = (state = stateDefault, action) => {
     case USER_LOGIN_REFRESH:
       return {
         loading: false,
-        userInfo: JSON.parse(localStorage.getItem('userInfo'))
+        userInfo: JSON.parse(localStorage.getItem("userInfo")),
       };
     default:
       return state;
@@ -67,15 +67,14 @@ export const userRegisterReducer = (state = {}, action) => {
       return {
         loading: false,
         success: true,
-        message: "Registered successful"
-
+        message: "Registered successful",
       };
     case USER_REGISTER_FAIL:
       return {
         loading: false,
         success: false,
         error: action.payload,
-        message: action.payload
+        message: action.payload,
       };
     case RESET_REGISTER_SUCCESS:
       return {
@@ -142,7 +141,6 @@ export const userUpdateProfileReducer = (state = {}, action) => {
     default:
       return state;
   }
-
 };
 
 export const userUpdateAvatarReducer = (state = {}, action) => {
