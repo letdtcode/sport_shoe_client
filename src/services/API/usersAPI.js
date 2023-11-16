@@ -8,7 +8,7 @@ export const updateAvatarRequest = async (imageFile) => {
     const res = await axios.put("/users/avatar", formData);
     return res;
   } catch (error) {
-    return error.response;
+    throw error.response ? error.response.data.message : error.message;
   }
 };
 
@@ -17,7 +17,7 @@ export const loginUserApi = async (email, password) => {
     const response = await axios.post(`/users/login`, { email, password });
     return response;
   } catch (error) {
-    return error
+    throw error.response ? error.response.data.message : error.message;
   }
 };
 export const registerApi = async (name, email, password) => {

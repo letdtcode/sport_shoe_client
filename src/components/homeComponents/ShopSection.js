@@ -55,13 +55,13 @@ const ShopSection = () => {
                         <div className="border-product">
                           <Link to={`/products/${product._id}`}>
                             <div className="shopBack">
-                              <Image src={product.image} alt={product.name} />
+                              <Image src={product.image} alt={product.productName} />
                             </div>
                           </Link>
                           <div className="shopText">
                             <Text fontSize="xl" isTruncated>
                               <Link to={`/products/${product._id}`}>
-                                {product.name}
+                                {product.productName}
                               </Link>
                             </Text>
                             <Rating
@@ -74,7 +74,7 @@ const ShopSection = () => {
                               </Heading>
                               <Spacer />
                             </Flex>
-                            <Link to={`/products/${product._id}`}>
+                            <Link to={`/products/${product.id}`}>
                               <Flex align="center">
                                 <Text
                                   fontSize="sm"

@@ -182,7 +182,7 @@ const ShopScreen = () => {
                         {products.slice(0, 6).map((product) => (
                           <li key={product._id}>
                             <Link to={`/products/${product._id}`}>
-                              {product.name}
+                              {product.productName}
                             </Link>
                           </li>
                         ))}

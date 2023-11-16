@@ -56,7 +56,7 @@ const SingleProduct = ({ match }) => {
     if (successCreateReview) {
       toast({
         title: `Successfully Submit Review !`,
-        description: `You have successful reviewed for product ${product?.name}`,
+        description: `You have successful reviewed for product ${product?.productName}`,
         status: "success",
         duration: 4000,
         isClosable: true,
@@ -103,14 +103,14 @@ const SingleProduct = ({ match }) => {
                   </Flex>
                 </Link>
                 <div className="single-image">
-                  <Image src={product?.image} alt={product?.name} />
+                  <Image src={product?.image} alt={product?.productName} />
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="product-dtl">
                   <div className="product-info">
                     <Heading as="h2" size="20px" className="product-name">
-                      {product?.name}
+                      {product?.productName}
                     </Heading>
                   </div>
                   <Text fontSize="16px">{product?.description}</Text>
