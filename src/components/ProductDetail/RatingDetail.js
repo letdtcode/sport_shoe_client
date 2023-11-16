@@ -16,7 +16,7 @@ import Rating from "../homeComponents/Rating";
 import { useDispatch } from "react-redux";
 import { productCreateReviewAction } from "../../redux/actions/ProductAction";
 import Loading from "../LoadingError/Loading";
-const RatingDetail = (props) => {
+const RatingDetail = (props) => { 
   const {
     product,
     userInfo,
