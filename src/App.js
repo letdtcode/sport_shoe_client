@@ -40,7 +40,7 @@ const App = () => {
           <PrivateRouter path="/shipping" component={ShippingScreen} />
           <PrivateRouter path="/payment" component={PaymentScreen} />
           <HomeRouter path="/cartitem" component={CartItem} />
-          <PrivateRouter path="/dat-hang" component={PlaceOrder} />
+          <PrivateRouter path="/place-order" component={PlaceOrder} />
           <PrivateRouter path="/order/:id" component={OrderScreen} />
           <HomeRouter path="/search/:keyword" component={ShopScreen} />
           <HomeRouter path="*" component={NotFound} />
