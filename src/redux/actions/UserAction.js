@@ -20,21 +20,25 @@ import {
   UPDATE_AVATAR_REQUEST,
   UPDATE_AVATAR_SUCCESS,
   UPDATE_AVATAR_FAIL,
-  RESET_REGISTER_SUCCESS ,
+  RESET_REGISTER_SUCCESS,
   USER_LOGIN_REFRESH,
 } from "../constants/UserContants";
 // USER LOGIN
 export const login = (email, password) => async (dispatch) => {
-  dispatch({ type: USER_LOGIN_REQUEST });
-  const dataLogin = await loginUserApi(email, password)
-  if (dataLogin.status === 200) {
-    localStorage.setItem("userInfo", JSON.stringify(dataLogin.data.userInfo))
-    localStorage.setItem("accessToken", JSON.stringify(dataLogin.data.accessToken))
-    localStorage.setItem("refreshToken", JSON.stringify(dataLogin.data.refreshToken))
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: dataLogin.data.userInfo })
-    return
+  try {
+
+    dispatch({ type: USER_LOGIN_REQUEST });
+    const dataLogin = await loginUserApi(email, password)
+    console.log(dataLogin)
+    if (dataLogin.status === 200) {
+      localStorage.setItem("userInfo", JSON.stringify(dataLogin.data.userInfo))
+      localStorage.setItem("accessToken", JSON.stringify(dataLogin.data.accessToken))
+      localStorage.setItem("refreshToken", JSON.stringify(dataLogin.data.refreshToken))
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: dataLogin.data.userInfo })
+    }
+  } catch (error) {
+    dispatch({ type: USER_LOGIN_FAIL, payload: error })
   }
-  dispatch({ type: USER_LOGIN_FAIL, payload: dataLogin.data.message })
 };
 
 export const loginOAuth2 = () => async (dispatch) => {
@@ -54,6 +58,7 @@ export const loginOAuth2 = () => async (dispatch) => {
       localStorage.setItem("userInfo", JSON.stringify(resObject.user));
     })
     .catch((error) => {
+
       dispatch({
         type: USER_LOGIN_FAIL,
         payload: error.response?.data?.message || error.message,
@@ -74,11 +79,10 @@ export const logout = () => async (dispatch) => {
 export const register = (name, email, password) => async (dispatch) => {
   dispatch({ type: USER_REGISTER_REQUEST });
 
-  const dataRegister= await registerApi(name, email, password);
-  if(dataRegister.status=== 201)
-  {
-    dispatch({ type: USER_REGISTER_SUCCESS, payload: dataRegister.data});
-    return 
+  const dataRegister = await registerApi(name, email, password);
+  if (dataRegister.status === 201) {
+    dispatch({ type: USER_REGISTER_SUCCESS, payload: dataRegister.data });
+    return
   }
   dispatch({ type: USER_REGISTER_FAIL, payload: dataRegister.data.message });
 };
@@ -157,8 +161,8 @@ export const updateAvatar = (imageFile) => async (dispatch) => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
     userInfo.avatarUrl = response.data.avatarUrl;
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
-   
-    dispatch({type: USER_LOGIN_REFRESH})
+
+    dispatch({ type: USER_LOGIN_REFRESH })
   } catch (error) {
 
     dispatch({
