@@ -13,22 +13,27 @@ instance.interceptors.request.use(
 
   (config) => {
     const token = getToken();
+
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
+        
     return config;
   },
   (error) => {
+   
     return Promise.reject(error);
   }
 );
 instance.interceptors.response.use(
   (res) => {
+   
     return res;
   },
   async (error) => {
     const originalConfig = error.config;
-    if (originalConfig.url !== "/user/login" && error.response) {
+   
+    if (originalConfig.url !== `/users/login` && error.response) {
       if ((error.response.status === 401 || error.response.status === 500) && !originalConfig._retry) {
         originalConfig._retry = true;
 

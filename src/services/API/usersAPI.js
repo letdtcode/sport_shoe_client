@@ -17,6 +17,7 @@ export const loginUserApi = async (email, password) => {
     const response = await axios.post(`/users/login`, { email, password });
     return response;
   } catch (error) {
+    
     throw error.response ? error.response.data.message : error.message;
   }
 };

@@ -637,7 +637,11 @@ textarea:focus {
 .table-responsive {
   width: 100%;
 }
-
+.btn-success{
+  color: #FFF;
+  border-radius: 5px;
+  padding: 10px;
+}
 .button-orderid{
     background-color: #3167eb;
     color: #FFF;
