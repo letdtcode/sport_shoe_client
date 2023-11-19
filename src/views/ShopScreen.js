@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { categoryListAllAction } from "../redux/actions/CategoryAction";
 import ShopProduct from "../components/Shop/ShopProduct";
 import Pagination from "react-js-pagination";
-import { getFilteredProducts, listProduct } from ".././redux/actions/ProductAction";
+import {
+  getFilteredProducts,
+  listProduct,
+} from ".././redux/actions/ProductAction";
 import CheckboxCategoryFilter from "../components/Shop/Checkbox";
 import { prices } from "../components/Shop/PriceChart";
 import { Box, Heading, Select, Stack } from "@chakra-ui/react";
@@ -15,7 +18,6 @@ const ShopScreen = () => {
   const productList = useSelector((state) => state.productFilter);
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
-
 
   const { loading, error, products } = productList;
   const [myFilters, setMyFilters] = useState({
@@ -76,17 +78,15 @@ const ShopScreen = () => {
   };
   useEffect(() => {
     init();
-    if (keyword!== undefined){
+    if (keyword !== undefined) {
       dispatch(listProduct(keyword));
-    }
-    else
-    {
+    } else {
       loadFilteredResults(skip, limit, myFilters.filters);
     }
     // eslint-disable-next-line
   }, []);
 
-  const { keyword } = useParams()
+  const { keyword } = useParams();
   return (
     <>
       <section className="section-pagetop bg mt-5 container-fluid">
@@ -182,7 +182,7 @@ const ShopScreen = () => {
                         {products.slice(0, 6).map((product) => (
                           <li key={product._id}>
                             <Link to={`/products/${product._id}`}>
-                              {product.name}
+                              {product.productName}
                             </Link>
                           </li>
                         ))}

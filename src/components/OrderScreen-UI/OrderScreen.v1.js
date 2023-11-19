@@ -57,7 +57,7 @@ const OrderScreen = ({ match }) => {
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2);
     };
-    console.log(order)
+    console.log(order);
     order.itemsPrice = addDecimals(
       order.orderItems.reduce((a, b) => a + b.typeProduct.quantity * b.price, 0)
     );
@@ -65,7 +65,7 @@ const OrderScreen = ({ match }) => {
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get(`${URL}/api/config/paypal`);
+      const { data: clientId } = await axios.get(`${URL}/api/v1/config/paypal`);
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;

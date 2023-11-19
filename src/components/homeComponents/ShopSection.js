@@ -23,7 +23,7 @@ const ShopSection = () => {
   const { loading, error, products } = productList;
 
   useEffect(() => {
-    dispatch(listProduct({keywword:"Nike"}));
+    dispatch(listProduct({ keywword: "Nike" }));
   }, [dispatch]);
 
   return (
@@ -55,13 +55,16 @@ const ShopSection = () => {
                         <div className="border-product">
                           <Link to={`/products/${product._id}`}>
                             <div className="shopBack">
-                              <Image src={product.image} alt={product.name} />
+                              <Image
+                                src={product.image}
+                                alt={product.productName}
+                              />
                             </div>
                           </Link>
                           <div className="shopText">
                             <Text fontSize="xl" isTruncated>
                               <Link to={`/products/${product._id}`}>
-                                {product.name}
+                                {product.productName}
                               </Link>
                             </Text>
                             <Rating
