@@ -56,7 +56,7 @@ const SingleProduct = ({ match }) => {
     if (successCreateReview) {
       toast({
         title: `Successfully Submit Review !`,
-        description: `You have successful reviewed for product ${product?.name}`,
+        description: `You have successful reviewed for product ${product?.productName}`,
         status: "success",
         duration: 4000,
         isClosable: true,

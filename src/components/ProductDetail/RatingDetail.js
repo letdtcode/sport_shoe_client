@@ -16,8 +16,12 @@ import Rating from "../homeComponents/Rating";
 import { useDispatch } from "react-redux";
 import { productCreateReviewAction } from "../../redux/actions/ProductAction";
 import Loading from "../LoadingError/Loading";
+<<<<<<< HEAD
 
 const RatingDetail = (props) => {
+=======
+const RatingDetail = (props) => { 
+>>>>>>> 0e0839167a8c28bc66f0cbbd2999ad0464802b99
   const {
     product,
     userInfo,
@@ -74,23 +78,41 @@ const RatingDetail = (props) => {
                   {product?.reviews?.map((item) => (
                     <Box
                       className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded-0"
+<<<<<<< HEAD
                       key={item.reviewId._id}
                     >
                       <Text fontSize="lg" fontWeight="bold">
                         {item.reviewId.name}
                       </Text>
                       <Rating value={item.reviewId.rating} />
+=======
+                      key={review.reviewId._id}
+                    >
+                      <Text fontSize="lg" fontWeight="bold">
+                        {review.reviewId.name}
+                      </Text>
+                      <Rating value={review.reviewId.rating} />
+>>>>>>> 0e0839167a8c28bc66f0cbbd2999ad0464802b99
                       <Text fontSize="14px" fontWeight="light">
                         {moment(item.reviewId.createdAt).calendar()}
                       </Text>
                       <Text fontSize="16px" className="alert alert-info mt-3">
+<<<<<<< HEAD
                         {item.comment}
+=======
+                        {review.reviewId.comment}
+>>>>>>> 0e0839167a8c28bc66f0cbbd2999ad0464802b99
                       </Text>
                     </Box>
                   ))}
                 </div>
+<<<<<<< HEAD
                 {product?.allowReview === true && (
                   <form className="col-md-6" onSubmit={submitHandler}>
+=======
+                {
+                  product?.allowReview ===true  && (<form className="col-md-6" onSubmit={submitHandler}>
+>>>>>>> 0e0839167a8c28bc66f0cbbd2999ad0464802b99
                     <Heading as="h6" size="md" textTransform="uppercase">
                       Write rating & review product
                     </Heading>
@@ -170,6 +192,7 @@ const RatingDetail = (props) => {
                         No any reviews
                       </Message>
                     )}
+<<<<<<< HEAD
                     {product?.reviews?.map((item) => (
                       <Box
                         className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded-0"
@@ -186,6 +209,22 @@ const RatingDetail = (props) => {
                         </Text>
                         <Text fontSize="16px" className="alert alert-info mt-3">
                           {item.reviewId.comment}
+=======
+                    {product?.reviews?.map((review) => (
+                      <Box
+                        className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded-0"
+                        key={review.reviewId._id}
+                      >
+                        <Text fontSize="lg" fontWeight="bold">
+                          {review.reviewId.name}
+                        </Text>
+                        <Rating value={review.reviewId.rating} />
+                        <Text fontSize="14px" fontWeight="light">
+                          {moment(review.reviewId.createdAt).calendar()}
+                        </Text>
+                        <Text fontSize="16px" className="alert alert-info mt-3">
+                          {review.reviewId.comment}
+>>>>>>> 0e0839167a8c28bc66f0cbbd2999ad0464802b99
                         </Text>
                       </Box>
                     ))}

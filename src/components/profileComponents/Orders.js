@@ -41,7 +41,7 @@ const Orders = (props) => {
             <div className="col-12 alert alert-info text-center mt-3">
               No Orders
               <Link
-                className="btn btn-success mx-2 px-3 py-2"
+                className="btn-success"
                 to="/"
                 style={{ fontSize: "12px" }}
               >
@@ -65,7 +65,7 @@ const Orders = (props) => {
                       <Tr key={order._id}>
                         <Td>
                           <a href={`/order/${order._id}`} className="button-orderid">
-                              Order detail
+                            Order detail
                           </a>
                         </Td>
                         <Td>
@@ -113,21 +113,24 @@ const Orders = (props) => {
                             {
                               openOrder.orderItems.map((orderItem) => (
                                 <div className="openOrder">
-                                    <img className="item-order-img" src={orderItem.image}/>
-                                  <Td className="openOrder-element"  style={{width:"300px",  textWrap:"wrap"}}>
+                                  <img className="item-order-img" src={orderItem.image} />
+                                  <Td className="openOrder-element" style={{ width: "300px", textWrap: "wrap" }}>
                                     {orderItem.name}
-                                  
+
+                                  </Td>
+                                  <Td className="openOrder-element" style={{ width: "200px" }}>
+                                    <div style={{ whiteSpace: "pre-wrap" }}>
+                                      {"Color: "}{orderItem.typeProduct.color} {"\nSize: "}{orderItem.typeProduct.size}
+                                    </div>
                                   </Td>
                                   <Td className="openOrder-element" >
-                                    Quantity: {orderItem.qty}
+                                    Quantity: {orderItem.typeProduct.quantity}
                                   </Td>
                                   <Td className="openOrder-element" >
-                                     price: ${orderItem.price}
+                                    price: ${orderItem.price}
                                   </Td>
                                   <Link className='item-order-button' to={`/products/${orderItem.product}`}>
-                       
-                                      View Product
-                  
+                                    View Product
                                   </Link>
                                 </div>
                               ))

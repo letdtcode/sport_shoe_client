@@ -638,12 +638,25 @@ textarea:focus {
 .table-responsive {
   width: 100%;
 }
+<<<<<<< HEAD
 
 .button-orderid {
   background-color: #3167eb;
   color: #fff;
   border-radius: 5px;
   padding: 5px;
+=======
+.btn-success{
+  color: #FFF;
+  border-radius: 5px;
+  padding: 10px;
+}
+.button-orderid{
+    background-color: #3167eb;
+    color: #FFF;
+    border-radius: 5px;
+    padding: 5px;
+>>>>>>> 0e0839167a8c28bc66f0cbbd2999ad0464802b99
 }
 .button-orderid:hover {
   background-color: #2d5acd;
@@ -655,6 +668,7 @@ textarea:focus {
 }
 
 .openOrder-element {
+  font-size: 13px;
   width: 125px;
 }
 
@@ -1139,6 +1153,7 @@ a[class*="card"]:hover .title {
 
 .card-product-grid {
   margin-bottom: 20px;
+  border: 3px solid #EAEEEF;
 }
 .card-product-grid:hover {
   border: 3px solid #3e89f9;
