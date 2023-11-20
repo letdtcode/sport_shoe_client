@@ -14,7 +14,6 @@ const ShippingScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const orderPay = useSelector((state) => state.orderPay);
-  console.log(orderPay.success);
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(

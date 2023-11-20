@@ -6,7 +6,6 @@ const CheckboxCategoryFilter = ({ categories, handleFilters }) => {
   const handleToggle = (categoryName) => {
     // return the first index or - 1
     const currentIndex = checkedCategoryName.indexOf(categoryName);
-    // console.log(currentIndex);
     const newCheckedCategoryName = [...checkedCategoryName];
     // if currently checked was not already in checked state => push
     // else pull/take off

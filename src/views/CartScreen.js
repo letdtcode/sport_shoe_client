@@ -10,12 +10,10 @@ const CartScreen = ({ match, location, history }) => {
   const dispatch = useDispatch();
   const productId = match.params.id;
   // Finding URL contain " = "
-  console.log(productId);
   const qty = location.qty;
   // Update Cart
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  console.log(cartItems);
 
   // Calculate total product prices
   const total = cartItems

@@ -57,7 +57,6 @@ const OrderScreen = ({ match }) => {
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2);
     };
-    console.log(order);
     order.itemsPrice = addDecimals(
       order.orderItems.reduce((a, b) => a + b.typeProduct.quantity * b.price, 0)
     );
@@ -106,6 +105,38 @@ const OrderScreen = ({ match }) => {
     e.preventDefault();
     dispatch(deleteOrderAction(order._id));
   };
+
+  const statusOrderShow = (status) => {
+    let textShow = "";
+    let typeColor = "";
+    switch (status) {
+      case 0:
+        textShow = "Awaiting confirm";
+        typeColor = "blue";
+        break;
+      case 1:
+        textShow = "Awaiting delivery";
+        typeColor = "yellow";
+        break;
+      case 2:
+        textShow = "Delivering";
+        typeColor = "gray";
+        break;
+      case 3:
+        textShow = "Received";
+        typeColor = "green";
+        break;
+      default:
+        textShow = "Cancelled";
+        typeColor = "red";
+    }
+    return (
+      <Tag ml="1" size="lg" colorScheme={typeColor} variant="solid">
+        <Text className="text-center text-sm-start">{textShow}</Text>
+      </Tag>
+    );
+  };
+
   return (
     <section className="order-id-wrapper mt-5">
       <AlertDialog
@@ -219,7 +250,8 @@ const OrderScreen = ({ match }) => {
                                         </li> */}
                                         <li>
                                           <Text fontSize="14px">
-                                            {item.typeProduct.quantity} X {item.price}$
+                                            {item.typeProduct.quantity} X{" "}
+                                            {item.price}$
                                           </Text>
                                         </li>
                                       </ul>
@@ -476,7 +508,8 @@ const OrderScreen = ({ match }) => {
                             </Text>
                           </div>
                         </Flex>
-                        {order.isDelivered ? (
+                        {statusOrderShow(order.status)}
+                        {/* {order.isDelivered ? (
                           <Tag
                             ml="1"
                             size="lg"
@@ -498,7 +531,7 @@ const OrderScreen = ({ match }) => {
                               Not delivered
                             </Text>
                           </Tag>
-                        )}
+                        )} */}
                       </Stack>
                     </Stack>
                   </div>

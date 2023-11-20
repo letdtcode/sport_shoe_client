@@ -61,7 +61,6 @@ const PlaceOrder = ({ history }) => {
     );
   };
   useEffect(() => {
-    console.log(order)
     if (success) {
       history.push(`/order/${order._id}`);
       dispatch({ type: ORDER_CREATE_RESET });

@@ -38,11 +38,8 @@ const RatingDetail = (props) => {
         comment,
       })
     );
-    console.log(product.reviews[0].reviewId.name);
   };
 
-  console.log(product);
-  console.log(userInfo);
   return (
     <div className="row my-5">
       {userInfo ? (
@@ -84,7 +81,7 @@ const RatingDetail = (props) => {
                         {moment(item.reviewId.createdAt).calendar()}
                       </Text>
                       <Text fontSize="16px" className="alert alert-info mt-3">
-                        {item.comment}
+                        {item.reviewId.comment}
                       </Text>
                     </Box>
                   ))}
@@ -178,7 +175,6 @@ const RatingDetail = (props) => {
                         {/* <button onClick={() => console.log(item)}>Test</button> */}
                         <Text fontSize="lg" fontWeight="bold">
                           {item.reviewId.name}
-                          {console.log(item.reviewId.name)}
                         </Text>
                         <Rating value={item.reviewId.rating} />
                         <Text fontSize="14px" fontWeight="light">
