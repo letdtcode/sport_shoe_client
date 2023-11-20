@@ -55,14 +55,10 @@ const ShopSection = () => {
                         <div className="border-product">
                           <Link to={`/products/${product._id}`}>
                             <div className="shopBack">
-<<<<<<< HEAD
                               <Image
                                 src={product.image}
                                 alt={product.productName}
                               />
-=======
-                              <Image src={product.image} alt={product.productName} />
->>>>>>> 0e0839167a8c28bc66f0cbbd2999ad0464802b99
                             </div>
                           </Link>
                           <div className="shopText">
