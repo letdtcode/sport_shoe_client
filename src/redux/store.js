@@ -23,6 +23,7 @@ import {
   orderPayReducer,
 } from "./reducers/OrderReducers";
 import { categoryListAllReducer } from "./reducers/CategoryReducer";
+import { brandListAllReducer } from "./reducers/BrandReducer";
 import { mailCreateReducer } from "./reducers/MailReducer";
 
 const reducer = combineReducers({
@@ -48,6 +49,8 @@ const reducer = combineReducers({
   orderDelete: orderDeleteReducer,
   // CATEGORIES
   categoryList: categoryListAllReducer,
+   // BRANDS
+   brandList: brandListAllReducer,
   // EMAIL
   sendEmail: mailCreateReducer,
 });

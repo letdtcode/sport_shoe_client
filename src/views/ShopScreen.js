@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryListAllAction } from "../redux/actions/CategoryAction";
+import { brandListAllAction } from "../redux/actions/BrandAction";
 import ShopProduct from "../components/Shop/ShopProduct";
 import Pagination from "react-js-pagination";
 import { getFilteredProducts, listProduct } from ".././redux/actions/ProductAction";
-import CheckboxCategoryFilter from "../components/Shop/Checkbox";
+import CheckboxCategoryFilter from "../components/Shop/CheckboxCategory";
+import CheckboxBrandFilter from "../components/Shop/CheckboxBrand";
 import { prices } from "../components/Shop/PriceChart";
 import { Box, Heading, Select, Stack } from "@chakra-ui/react";
 import RadioBox from "../components/Shop/RadioBox";
@@ -17,9 +19,13 @@ const ShopScreen = () => {
   const { categories } = categoryList;
 
 
+  const brandList = useSelector((state) => state.brandList);
+  const { brands } =brandList;
+
+
   const { loading, error, products } = productList;
   const [myFilters, setMyFilters] = useState({
-    filters: { category: [], price: [] },
+    filters: { category: [], price: [] , brand:[]},
   });
 
   // eslint-disable-next-line
@@ -32,9 +38,11 @@ const ShopScreen = () => {
   // eslint-disable-next-line
   const init = () => {
     dispatch(categoryListAllAction());
+    dispatch(brandListAllAction());
   };
 
   const loadFilteredResults = (newFilters) => {
+    console.log(newFilters)
     dispatch(getFilteredProducts(skip, limit, newFilters));
     setActivePage(1);
   };
@@ -42,8 +50,13 @@ const ShopScreen = () => {
   const handleFilters = (filters, filterBy) => {
     const newFilters = { ...myFilters };
     newFilters.filters[filterBy] = filters;
+    
 
     if (filterBy === "price") {
+      let priceValues = handlePrice(filters);
+      newFilters.filters[filterBy] = priceValues;
+    }
+    if (filterBy === "category") {
       let priceValues = handlePrice(filters);
       newFilters.filters[filterBy] = priceValues;
     }
@@ -157,14 +170,14 @@ const ShopScreen = () => {
                       aria-controls="collapseOne"
                     >
                       Kind of product
-                    </Heading>
+                    </Heading>  
                   </header>
                   <div
                     className="filter-content collapse show"
                     id="collapseOne"
                   >
                     <div className="card-body">
-                      <form className="pb-3">
+                      {/* <form className="pb-3">
                         <div className="input-group">
                           <input
                             type="text"
@@ -177,17 +190,46 @@ const ShopScreen = () => {
                             </button>
                           </div>
                         </div>
-                      </form>
+                      </form> */}
                       <ul className="list-menu">
                         {products.slice(0, 6).map((product) => (
                           <li key={product._id}>
                             <Link to={`/products/${product._id}`}>
                               {product.productName}
                             </Link>
-                          </li>
+                          </li> 
                         ))}
                       </ul>
                     </div>
+                  </div>
+                </article>
+                <article className="filter-group accordion-item">
+                  <header className=" accordion-header" id="headingTwo">
+                    <Heading
+                      as="h5"
+                      size="sm"
+                      className="accordion-button title"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo"
+                      aria-expanded="true"
+                      aria-controls="collapseTwo"
+                    >
+                      Categories
+                    </Heading>
+                  </header>
+                  <div
+                    className="filter-content collapse show"
+                    id="collapseTwo"
+                  >
+                    <ul className="list-group p-1">
+                      <CheckboxCategoryFilter
+                        categories={categories}
+                        handleFilters={(filters) =>
+                          handleFilters(filters, "category")
+                        }
+                      />
+                    </ul>
                   </div>
                 </article>
                 <article className="filter-group accordion-item">
@@ -210,10 +252,10 @@ const ShopScreen = () => {
                     id="collapseTwo"
                   >
                     <ul className="list-group p-1">
-                      <CheckboxCategoryFilter
-                        categories={categories}
+                      <CheckboxBrandFilter
+                        brands={brands}
                         handleFilters={(filters) =>
-                          handleFilters(filters, "category")
+                          handleFilters(filters, "brand")
                         }
                       />
                     </ul>
