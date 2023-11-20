@@ -78,7 +78,7 @@ const ShopProduct = (props) => {
                   <figcaption className="info-wrap">
                     <div className="fix-height">
                       <Link to={`/products/${item._id}`} className="title">
-                        {item.name}
+                        {item.productName}
                       </Link>
                       <Text className="price">${item.price}</Text>
                       {/* <del className="price-old">$1980</del> */}

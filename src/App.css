@@ -1177,7 +1177,7 @@ a[class*="card"]:hover .title {
 }
 
 .card-product-grid .fix-height {
-  height: 80px;
+  height: 150px;
   overflow: hidden;
 }
 

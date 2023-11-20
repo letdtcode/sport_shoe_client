@@ -38,18 +38,18 @@ const SingleProduct = ({ match }) => {
   const dispatch = useDispatch();
 
   // CALL REDUCER
-  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = useSelector(
+    (state) => state.productDetails
+  );
   const userLogin = useSelector((state) => state.userLogin);
-  const productCreateReview = useSelector((state) => state.productCreateReview);
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, product } = productDetails;
-  const { products } = productList;
-  const { userInfo } = userLogin;
   const {
     loading: loadingCreateReview,
     error: errorCreateReview,
     success: successCreateReview,
-  } = productCreateReview;
+  } = useSelector((state) => state.productCreateReview);
+  const productList = useSelector((state) => state.productList);
+  const { products } = productList;
+  const { userInfo } = userLogin;
 
   // ComponentDidMount, async/await
   useEffect(() => {
