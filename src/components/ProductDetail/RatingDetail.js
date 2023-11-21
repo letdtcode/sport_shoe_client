@@ -16,7 +16,8 @@ import Rating from "../homeComponents/Rating";
 import { useDispatch } from "react-redux";
 import { productCreateReviewAction } from "../../redux/actions/ProductAction";
 import Loading from "../LoadingError/Loading";
-const RatingDetail = (props) => { 
+
+const RatingDetail = (props) => {
   const {
     product,
     userInfo,
@@ -38,6 +39,7 @@ const RatingDetail = (props) => {
       })
     );
   };
+
   return (
     <div className="row my-5">
       {userInfo ? (
@@ -66,26 +68,26 @@ const RatingDetail = (props) => {
                       No any reviews
                     </Message>
                   )}
-                  {product?.reviews?.map((review) => (
+                  {product?.reviews?.map((item) => (
                     <Box
                       className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded-0"
-                      key={review.reviewId._id}
+                      key={item.reviewId._id}
                     >
                       <Text fontSize="lg" fontWeight="bold">
-                        {review.reviewId.name}
+                        {item.reviewId.name}
                       </Text>
-                      <Rating value={review.reviewId.rating} />
+                      <Rating value={item.reviewId.rating} />
                       <Text fontSize="14px" fontWeight="light">
-                        {moment(review.createdAt).calendar()}
+                        {moment(item.reviewId.createdAt).calendar()}
                       </Text>
                       <Text fontSize="16px" className="alert alert-info mt-3">
-                        {review.reviewId.comment}
+                        {item.comment}
                       </Text>
                     </Box>
                   ))}
                 </div>
-                {
-                  product?.allowReview ===true  && (<form className="col-md-6" onSubmit={submitHandler}>
+                {product?.allowReview === true && (
+                  <form className="col-md-6" onSubmit={submitHandler}>
                     <Heading as="h6" size="md" textTransform="uppercase">
                       Write rating & review product
                     </Heading>
@@ -129,9 +131,8 @@ const RatingDetail = (props) => {
                         Send
                       </button>
                     </div>
-                  </form>)
-                }
-
+                  </form>
+                )}
               </div>
             </TabPanel>
             <TabPanel>
@@ -166,20 +167,22 @@ const RatingDetail = (props) => {
                         No any reviews
                       </Message>
                     )}
-                    {product?.reviews?.map((review) => (
+                    {product?.reviews?.map((item) => (
                       <Box
                         className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded-0"
-                        key={review.reviewId._id}
+                        key={item.reviewId._id}
                       >
+                      
                         <Text fontSize="lg" fontWeight="bold">
-                          {review.reviewId.name}
+                          {item.reviewId.name}
+                        
                         </Text>
-                        <Rating value={review.reviewId.rating} />
+                        <Rating value={item.reviewId.rating} />
                         <Text fontSize="14px" fontWeight="light">
-                          {moment(review.reviewId.createdAt).calendar()}
+                          {moment(item.reviewId.createdAt).calendar()}
                         </Text>
                         <Text fontSize="16px" className="alert alert-info mt-3">
-                          {review.reviewId.comment}
+                          {item.reviewId.comment}
                         </Text>
                       </Box>
                     ))}

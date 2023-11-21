@@ -13,6 +13,7 @@ const ShippingScreen = ({ history }) => {
   const [phoneNumber, setPhoneNumber] = useState(shippingAddress.phoneNumber);
   const dispatch = useDispatch();
 
+  const orderPay = useSelector((state) => state.orderPay);
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(

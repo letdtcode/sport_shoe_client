@@ -71,7 +71,7 @@ textarea:focus {
 .header {
   padding: 20px 0px 5px 0px;
 }
-.navbar-brand{
+.navbar-brand {
   width: 200px;
   height: 125px;
 }
@@ -134,7 +134,7 @@ textarea:focus {
 }
 
 .dropdown-menu a:hover {
-  background-color: #3e89f9!important;
+  background-color: #3e89f9 !important;
   color: #ffffff !important;
 }
 
@@ -203,8 +203,8 @@ textarea:focus {
   height: 320px;
   position: relative;
   width: 100%;
-  overflow: visible ;
-  transition: transform 0.3s ease; 
+  overflow: visible;
+  transition: transform 0.3s ease;
   text-align: -webkit-center;
   /* background-color: #f3fbf7; */
 }
@@ -217,8 +217,8 @@ textarea:focus {
 }
 .shopBack img:hover {
   border-radius: 5px;
-  transform: scale(1.1); 
-  transition: transform 0.3s ease; 
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
 }
 
 .shoptext {
@@ -301,7 +301,8 @@ textarea:focus {
 /* NEWSLATTER */
 .subscribe-section {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
-    url("https://sasshoes-com.s3.us-west-2.amazonaws.com/img/banner-uplift-21.jpg") no-repeat scroll center / cover;
+    url("https://sasshoes-com.s3.us-west-2.amazonaws.com/img/banner-uplift-21.jpg")
+      no-repeat scroll center / cover;
   padding: 100px 0 100px;
 }
 
@@ -432,24 +433,23 @@ textarea:focus {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 15px;
-
 }
 
-.add-to-card-btn{
+.add-to-card-btn {
   background: #f57224;
   color: #fff;
   height: 44px;
   font-size: 16px;
   border-radius: 5px;
 }
-.add-to-card-btn:hover{
+.add-to-card-btn:hover {
   background: #f95b00fb;
 }
-.add-to-card-btn:disabled{
+.add-to-card-btn:disabled {
   background: #dfdad7;
   color: #fff;
 }
-.btn-checkout{
+.btn-checkout {
   background: #43f524;
   color: #fff;
   height: 44px;
@@ -458,7 +458,8 @@ textarea:focus {
   text-align: center;
   padding: 10px;
   font-weight: 600;
-}.btn-checkout:hover{
+}
+.btn-checkout:hover {
   color: #fff;
   background: #33f411;
 }
@@ -527,7 +528,7 @@ textarea:focus {
   height: 100px;
   width: 100%;
   background-size: cover;
-  background: #ccc
+  background: #ccc;
 }
 
 .author-card-profile {
@@ -538,19 +539,19 @@ textarea:focus {
   /* padding: 0 20px; */
   width: 100px;
   height: 100px;
-  margin-top:-50px;
+  margin-top: -50px;
   margin-left: -10px;
 }
 
-.card-avatar{
+.card-avatar {
   width: 100px;
   height: 100px;
-  margin-left:0px;
+  margin-left: 0px;
 }
 
 .author-card-avatar img {
   width: 100px;
-  height: 100px; 
+  height: 100px;
   object-fit: contain;
   border-radius: 100px;
   /* margin-top: -60%; */
@@ -616,7 +617,7 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color:#3e89f9;
+  background-color: #3e89f9;
   color: #ffffff;
   border-radius: 5px;
   font-weight: 600;
@@ -637,20 +638,16 @@ textarea:focus {
 .table-responsive {
   width: 100%;
 }
-.btn-success{
-  color: #FFF;
+
+.button-orderid {
+  background-color: #3167eb;
+  color: #fff;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
 }
-.button-orderid{
-    background-color: #3167eb;
-    color: #FFF;
-    border-radius: 5px;
-    padding: 5px;
-}
-.button-orderid:hover{
+.button-orderid:hover {
   background-color: #2d5acd;
-  color: #FFF;
+  color: #fff;
 }
 /* toggleOrderDetails */
 .openOrder {
@@ -675,12 +672,12 @@ textarea:focus {
 .item-order-button {
   background-color: #00ff00 !important;
   color: #fff !important;
-  height: max-content ;
+  height: max-content;
   padding: 5px;
   text-align: center;
   border-radius: 5px;
 }
-.item-order-button:hover{
+.item-order-button:hover {
   background-color: #0da40dbe !important;
 }
 
@@ -1143,10 +1140,10 @@ a[class*="card"]:hover .title {
 
 .card-product-grid {
   margin-bottom: 20px;
-  border: 3px solid #EAEEEF;
+  border: 3px solid #eaeeef;
 }
-.card-product-grid:hover{
-  border: 3px solid #3E89F9;
+.card-product-grid:hover {
+  border: 3px solid #3e89f9;
 }
 
 .card-product-grid .img-wrap {
@@ -1182,7 +1179,7 @@ a[class*="card"]:hover .title {
 }
 
 .card-product-grid .fix-height {
-  height: 80px;
+  height: 150px;
   overflow: hidden;
 }
 
@@ -1267,7 +1264,7 @@ a[class*="card"]:hover .title {
   opacity: 0;
 }
 
-.checkbox-btn input:checked~.btn {
+.checkbox-btn input:checked ~ .btn {
   border-color: #333;
   background-color: #333;
   color: #fff;
@@ -1383,7 +1380,7 @@ a[class*="card"]:hover .title {
   display: inline-block;
 }
 
-.single-order .order-meta li+li {
+.single-order .order-meta li + li {
   margin-left: 15px;
 }
 
@@ -1449,7 +1446,7 @@ a[class*="card"]:hover .title {
   display: inline-block;
 }
 
-.order-id-content .order-meta li+li {
+.order-id-content .order-meta li + li {
   margin-left: 15px;
 }
 
@@ -1507,7 +1504,12 @@ a[class*="card"]:hover .title {
   padding-left: 8px;
 }
 
-.order-product .order-product-table .order-product-item .product-content .title a {
+.order-product
+  .order-product-table
+  .order-product-item
+  .product-content
+  .title
+  a {
   font-size: 16px;
   font-weight: 400;
   line-height: 22px;
@@ -1515,7 +1517,12 @@ a[class*="card"]:hover .title {
   transition: all 0.3s linear;
 }
 
-.order-product .order-product-table .order-product-item .product-content .title a:hover {
+.order-product
+  .order-product-table
+  .order-product-item
+  .product-content
+  .title
+  a:hover {
   color: #542ded;
 }
 
@@ -1523,11 +1530,23 @@ a[class*="card"]:hover .title {
   display: inline-block;
 }
 
-.order-product .order-product-table .order-product-item .product-content ul li+li {
+.order-product
+  .order-product-table
+  .order-product-item
+  .product-content
+  ul
+  li
+  + li {
   margin-left: 8px;
 }
 
-.order-product .order-product-table .order-product-item .product-content ul li span {
+.order-product
+  .order-product-table
+  .order-product-item
+  .product-content
+  ul
+  li
+  span {
   font-size: 14px;
   line-height: 16px;
   color: #4c4c4c;
@@ -1595,7 +1614,10 @@ a[class*="card"]:hover .title {
   padding: 8px 16px 0;
 }
 
-.single-order-details .order-details-content .single-details-item .details-title {
+.single-order-details
+  .order-details-content
+  .single-details-item
+  .details-title {
   width: 35%;
 }
 
@@ -1756,7 +1778,6 @@ a[class*="card"]:hover .title {
   width: max-content;
 }
 
-
 /* Update Avatar */
 .modal-update-avatar {
   display: flex;
@@ -1796,7 +1817,6 @@ a[class*="card"]:hover .title {
   position: relative;
   overflow: hidden;
 }
- 
 
 @keyframes borderAnimation {
   0% {
@@ -1824,16 +1844,15 @@ a[class*="card"]:hover .title {
   animation: borderAnimation 5s linear infinite; /* Adjust the duration as needed */
 }
 
-.css-3u9me0{
-  background-color: #277dfd!important;
-  color: #fff!important;
+.css-3u9me0 {
+  background-color: #277dfd !important;
+  color: #fff !important;
 }
-.css-3u9me0:hover{
-  background-color: #0048ff!important;
- 
+.css-3u9me0:hover {
+  background-color: #0048ff !important;
 }
 
-.box-selected{
+.box-selected {
   overflow: visible;
   cursor: pointer;
   min-width: 5rem;
@@ -1841,10 +1860,10 @@ a[class*="card"]:hover .title {
   box-sizing: border-box;
   padding: 0.5rem;
   margin: 8px 8px 0 0;
-  color: #EE4D2D;
+  color: #ee4d2d;
   text-align: left;
   border-radius: 2px;
-  border: 1px solid #EE4D2D;
+  border: 1px solid #ee4d2d;
   position: relative;
   background: #fff;
   outline: 0;
@@ -1853,7 +1872,7 @@ a[class*="card"]:hover .title {
   align-items: center;
   justify-content: center;
 }
-.box-select{
+.box-select {
   overflow: visible;
   cursor: pointer;
   min-width: 5rem;
@@ -1861,10 +1880,10 @@ a[class*="card"]:hover .title {
   box-sizing: border-box;
   padding: 0.5rem;
   margin: 8px 8px 0 0;
-  color: rgba(0,0,0,.8);
+  color: rgba(0, 0, 0, 0.8);
   text-align: left;
   border-radius: 2px;
-  border: 1px solid rgba(0,0,0,.09);
+  border: 1px solid rgba(0, 0, 0, 0.09);
   position: relative;
   background: #fff;
   outline: 0;
@@ -1874,11 +1893,11 @@ a[class*="card"]:hover .title {
   justify-content: center;
 }
 
-.avatar{
-  height: 35px!important;
-  width: 35px!important;
+.avatar {
+  height: 35px !important;
+  width: 35px !important;
 }
-.dropdown-toggle{
+.dropdown-toggle {
   text-align: center;
   padding: 5px;
   padding-right: 30px;

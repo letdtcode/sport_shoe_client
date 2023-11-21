@@ -11,7 +11,6 @@ export const getAllProducts = async (keyword = "") => {
 
 export const getFilteredProducts = async (skip, limit, filters = []) => {
   try {
-    console.log(skip, limit, filters)
     const response = await axios.post(`/products/search`, {
       skip,
       limit,

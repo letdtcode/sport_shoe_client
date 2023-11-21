@@ -6,7 +6,7 @@ const instance = axios.create({
   baseURL: (`${URL}/api/v1/`),
   timeout: 50000,
   validateStatus: function (status) {
-    return status >= 200 && status < 400;
+    return (status >= 200 && status < 400 )|| status === 404;
   },
 });
 instance.interceptors.request.use(

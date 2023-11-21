@@ -18,11 +18,15 @@ import {
   UPDATE_AVATAR_FAIL,
   RESET_REGISTER_SUCCESS,
   USER_LOGIN_REFRESH,
+  FORGOT_PASSWORD_REQUEST, 
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAIL,
 } from "../constants/UserContants";
 
 const stateDefault = {
   user: {},
   userInfo: [],
+  message : "",
 };
 
 // USER LOGIN
@@ -48,7 +52,7 @@ export const userLoginReducer = (state = stateDefault, action) => {
     case USER_LOGIN_REFRESH:
       return {
         loading: false,
-        userInfo: JSON.parse(localStorage.getItem('userInfo'))
+        userInfo: JSON.parse(localStorage.getItem("userInfo")),
       };
     default:
       return state;
@@ -67,15 +71,14 @@ export const userRegisterReducer = (state = {}, action) => {
       return {
         loading: false,
         success: true,
-        message: "Registered successful"
-
+        message: "Registered successful",
       };
     case USER_REGISTER_FAIL:
       return {
         loading: false,
         success: false,
         error: action.payload,
-        message: action.payload
+        message: action.payload,
       };
     case RESET_REGISTER_SUCCESS:
       return {
@@ -142,7 +145,6 @@ export const userUpdateProfileReducer = (state = {}, action) => {
     default:
       return state;
   }
-
 };
 
 export const userUpdateAvatarReducer = (state = {}, action) => {
@@ -169,3 +171,34 @@ export const userUpdateAvatarReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const forgotPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+
+    case FORGOT_PASSWORD_REQUEST:
+    
+      return {
+        ...state,
+        loading: true,
+        message: action.payload,
+      };
+    case FORGOT_PASSWORD_SUCCESS:
+   
+      return {
+        ...state,
+        loading: false,
+        status: "success",
+        message: action.payload,
+      };
+    case FORGOT_PASSWORD_FAIL:
+      return {
+        ...state,
+        loading: false,
+        status: "error",
+        message: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+

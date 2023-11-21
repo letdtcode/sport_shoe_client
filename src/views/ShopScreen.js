@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryListAllAction } from "../redux/actions/CategoryAction";
 import { brandListAllAction } from "../redux/actions/BrandAction";
 import ShopProduct from "../components/Shop/ShopProduct";
 import Pagination from "react-js-pagination";
-import { getFilteredProducts, listProduct } from ".././redux/actions/ProductAction";
-import CheckboxCategoryFilter from "../components/Shop/CheckboxCategory";
-import CheckboxBrandFilter from "../components/Shop/CheckboxBrand";
+import {
+  getFilteredProducts,
+  listProduct,
+} from ".././redux/actions/ProductAction";
+import CheckboxCategoryFilter from "../components/Shop/CheckboxCategoryFilter";
+import CheckboxBrandFilter from "../components/Shop/CheckboxBrandFilter";
 import { prices } from "../components/Shop/PriceChart";
 import { Box, Heading, Select, Stack } from "@chakra-ui/react";
 import RadioBox from "../components/Shop/RadioBox";
@@ -15,17 +18,12 @@ import RadioBox from "../components/Shop/RadioBox";
 const ShopScreen = () => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productFilter);
-  const categoryList = useSelector((state) => state.categoryList);
-  const { categories } = categoryList;
-
-
-  const brandList = useSelector((state) => state.brandList);
-  const { brands } =brandList;
-
+  const { categories } = useSelector((state) => state.categoryList);
+  const { brands } = useSelector((state) => state.brandList);
 
   const { loading, error, products } = productList;
   const [myFilters, setMyFilters] = useState({
-    filters: { category: [], price: [] , brand:[]},
+    filters: { categoryName: [], brandName: [], price: [] },
   });
 
   // eslint-disable-next-line
@@ -42,7 +40,6 @@ const ShopScreen = () => {
   };
 
   const loadFilteredResults = (newFilters) => {
-    console.log(newFilters)
     dispatch(getFilteredProducts(skip, limit, newFilters));
     setActivePage(1);
   };
@@ -50,13 +47,8 @@ const ShopScreen = () => {
   const handleFilters = (filters, filterBy) => {
     const newFilters = { ...myFilters };
     newFilters.filters[filterBy] = filters;
-    
 
     if (filterBy === "price") {
-      let priceValues = handlePrice(filters);
-      newFilters.filters[filterBy] = priceValues;
-    }
-    if (filterBy === "category") {
       let priceValues = handlePrice(filters);
       newFilters.filters[filterBy] = priceValues;
     }
@@ -89,17 +81,15 @@ const ShopScreen = () => {
   };
   useEffect(() => {
     init();
-    if (keyword!== undefined){
+    if (keyword !== undefined) {
       dispatch(listProduct(keyword));
-    }
-    else
-    {
+    } else {
       loadFilteredResults(skip, limit, myFilters.filters);
     }
     // eslint-disable-next-line
   }, []);
 
-  const { keyword } = useParams()
+  const { keyword } = useParams();
   return (
     <>
       <section className="section-pagetop bg mt-5 container-fluid">
@@ -156,53 +146,6 @@ const ShopScreen = () => {
                     </div>
                   </div>
                 </article>
-
-                <article className="filter-group accordion-item">
-                  <header className=" accordion-header" id="headingOne">
-                    <Heading
-                      as="h5"
-                      size="sm"
-                      className="accordion-button title"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne"
-                      aria-expanded="true"
-                      aria-controls="collapseOne"
-                    >
-                      Kind of product
-                    </Heading>  
-                  </header>
-                  <div
-                    className="filter-content collapse show"
-                    id="collapseOne"
-                  >
-                    <div className="card-body">
-                      {/* <form className="pb-3">
-                        <div className="input-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search"
-                          />
-                          <div className="input-group-append">
-                            <button className="btn btn-light" type="button">
-                              <i className="fa fa-search" />
-                            </button>
-                          </div>
-                        </div>
-                      </form> */}
-                      <ul className="list-menu">
-                        {products.slice(0, 6).map((product) => (
-                          <li key={product._id}>
-                            <Link to={`/products/${product._id}`}>
-                              {product.productName}
-                            </Link>
-                          </li> 
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </article>
                 <article className="filter-group accordion-item">
                   <header className=" accordion-header" id="headingTwo">
                     <Heading
@@ -226,7 +169,7 @@ const ShopScreen = () => {
                       <CheckboxCategoryFilter
                         categories={categories}
                         handleFilters={(filters) =>
-                          handleFilters(filters, "category")
+                          handleFilters(filters, "categoryName")
                         }
                       />
                     </ul>
@@ -255,7 +198,7 @@ const ShopScreen = () => {
                       <CheckboxBrandFilter
                         brands={brands}
                         handleFilters={(filters) =>
-                          handleFilters(filters, "brand")
+                          handleFilters(filters, "brandName")
                         }
                       />
                     </ul>

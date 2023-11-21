@@ -51,20 +51,19 @@ export const getOrder = (id) => async (dispatch) => {
 };
 
 // ORDER PAY
-export const payOrder =
-  (orderId, paymentResult) => async (dispatch) => {
-    try {
-      dispatch({ type: ORDER_PAY_REQUEST });
-      const data = await orderApi.payOrderApi(orderId, paymentResult);
-      dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
-    } catch (error) {
-      const message = error.response?.data?.message || error.message;
-      dispatch({
-        type: ORDER_PAY_FAIL,
-        payload: message,
-      });
-    }
-  };
+export const payOrder = (orderId, paymentResult) => async (dispatch) => {
+  try {
+    dispatch({ type: ORDER_PAY_REQUEST });
+    const data = await orderApi.payOrderApi(orderId, paymentResult);
+    dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response?.data?.message || error.message;
+    dispatch({
+      type: ORDER_PAY_FAIL,
+      payload: message,
+    });
+  }
+};
 
 // USER ORDERS
 export const listMyOrderAction = () => async (dispatch) => {

@@ -1,5 +1,5 @@
 import {
- BRAND_LIST_FAIL,
+  BRAND_LIST_FAIL,
   BRAND_LIST_REQUEST,
   BRAND_LIST_SUCCESS,
 } from "../constants/BrandConstants";

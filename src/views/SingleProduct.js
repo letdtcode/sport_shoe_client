@@ -18,7 +18,8 @@ import {
   Stack,
   Text,
   useToast,
-  Button, Input
+  Button,
+  Input,
 } from "@chakra-ui/react";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { addToCart } from "../redux/actions/CartAction";
@@ -37,22 +38,21 @@ const SingleProduct = ({ match }) => {
   const dispatch = useDispatch();
 
   // CALL REDUCER
-  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = useSelector(
+    (state) => state.productDetails
+  );
   const userLogin = useSelector((state) => state.userLogin);
-  const productCreateReview = useSelector((state) => state.productCreateReview);
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, product } = productDetails;
-  const { products } = productList;
-  const { userInfo } = userLogin;
   const {
     loading: loadingCreateReview,
     error: errorCreateReview,
     success: successCreateReview,
-  } = productCreateReview;
+  } = useSelector((state) => state.productCreateReview);
+  const productList = useSelector((state) => state.productList);
+  const { products } = productList;
+  const { userInfo } = userLogin;
 
   // ComponentDidMount, async/await
   useEffect(() => {
-
     if (successCreateReview) {
       toast({
         title: `Successfully Submit Review !`,
@@ -68,7 +68,6 @@ const SingleProduct = ({ match }) => {
     dispatch(listProduct());
     dispatch(listProductDetails(productId));
     // eslint-disable-next-line
-
   }, [dispatch, productId, successCreateReview]);
   // Handle Add Cart Button
   const AddToCartHandle = (e) => {
@@ -83,7 +82,6 @@ const SingleProduct = ({ match }) => {
     });
   };
   const [typeSelect, setTypeSelect] = useState([]);
-
 
   return (
     <>
@@ -109,7 +107,12 @@ const SingleProduct = ({ match }) => {
               <div className="col-md-6">
                 <div className="product-dtl">
                   <div className="product-info">
-                    <Heading as="h2" size="20px" className="product-name">
+                    <Heading
+                      as="h2"
+                      size="20px"
+                      className="product-name"
+                      style={{ lineHeight: "2.5rem" }}
+                    >
                       {product?.productName}
                     </Heading>
                   </div>
@@ -137,14 +140,25 @@ const SingleProduct = ({ match }) => {
                         text={`${product?.numReviews} reviews`}
                       />
                     </Flex>
-                    <Flex className="flex-box" justify="space-between" align="center">
+                    <Flex
+                      className="flex-box"
+                      justify="space-between"
+                      align="center"
+                    >
                       <Heading as="h6">Color</Heading>
                       <Flex display={"block"} ml={"30px"}>
                         {product.typeProduct.map((type, index) => (
                           <button
-                            className={typeSelect.color === type.color ? "box-selected" : 'box-select'}
+                            className={
+                              typeSelect.color === type.color
+                                ? "box-selected"
+                                : "box-select"
+                            }
                             key={index}
-                            onClick={() => { setQty(1); setTypeSelect({ color: type.color }) }}
+                            onClick={() => {
+                              setQty(1);
+                              setTypeSelect({ color: type.color });
+                            }}
                           >
                             {type.color}
                           </button>
@@ -152,21 +166,31 @@ const SingleProduct = ({ match }) => {
                       </Flex>
                     </Flex>
 
-                    <Flex className="flex-box" justify="space-between" align="center">
+                    <Flex
+                      className="flex-box"
+                      justify="space-between"
+                      align="center"
+                    >
                       <Heading as="h6">Size</Heading>
                       <Flex display={"block"} ml={"30px"}>
                         {product.typeProduct
-                          .filter(type => type.color === typeSelect.color)
+                          .filter((type) => type.color === typeSelect.color)
                           .map((filteredType) =>
                             filteredType.sizes.map((sizes, index) => (
                               <button
-                                className={typeSelect.size === sizes.size ? "box-selected" : 'box-select'}
+                                className={
+                                  typeSelect.size === sizes.size
+                                    ? "box-selected"
+                                    : "box-select"
+                                }
                                 key={index}
                                 onClick={() => {
-                                  setTypeSelect({ ...typeSelect, size: sizes.size, countInStock: sizes.quantity });
+                                  setTypeSelect({
+                                    ...typeSelect,
+                                    size: sizes.size,
+                                    countInStock: sizes.quantity,
+                                  });
                                   setQty(1);
-                                 
-
                                 }}
                               >
                                 {sizes.size}
@@ -176,7 +200,6 @@ const SingleProduct = ({ match }) => {
                       </Flex>
                     </Flex>
 
-
                     <Flex className="flex-box d-flex justify-content-between align-items-center">
                       <Heading as="h6">Quantity</Heading>
                       <Box>
@@ -184,7 +207,7 @@ const SingleProduct = ({ match }) => {
                           <Button
                             onClick={() => {
                               if (qty > 1) {
-                                setQty(qty - 1)
+                                setQty(qty - 1);
                               }
                             }}
                           >
@@ -194,17 +217,23 @@ const SingleProduct = ({ match }) => {
                             type="number"
                             value={qty}
                             min={1}
-                            max={typeSelect?.countInStock? typeSelect.countInStock: 1}
-
+                            max={
+                              typeSelect?.countInStock
+                                ? typeSelect.countInStock
+                                : 1
+                            }
                             onChange={(e) => {
-                              const newValue = Math.min(Math.max(1, e.target.value), typeSelect.countInStock);
-                              setQty(newValue)
+                              const newValue = Math.min(
+                                Math.max(1, e.target.value),
+                                typeSelect.countInStock
+                              );
+                              setQty(newValue);
                             }}
                           />
                           <Button
                             onClick={() => {
                               if (qty < typeSelect.countInStock) {
-                                setQty(qty + 1)
+                                setQty(qty + 1);
                               }
                             }}
                           >
@@ -215,7 +244,7 @@ const SingleProduct = ({ match }) => {
                     </Flex>
 
                     <button
-                      disabled={typeSelect?.countInStock>0 ?false:true}
+                      disabled={typeSelect?.countInStock > 0 ? false : true}
                       onClick={AddToCartHandle}
                       className="add-to-card-btn"
                     >
@@ -242,8 +271,7 @@ const SingleProduct = ({ match }) => {
               productId={productId}
             />
           </>
-        )
-        }
+        )}
         <div className="maylike-products-wrapper">
           <Center>
             <Heading as="h4" size="md" textTransform="uppercase">
@@ -258,7 +286,7 @@ const SingleProduct = ({ match }) => {
             </div>
           </div>
         </div>
-      </div >
+      </div>
     </>
   );
 };
