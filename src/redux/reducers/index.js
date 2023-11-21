@@ -12,6 +12,8 @@ import {
   userRegisterReducer,
   userUpdateProfileReducer,
   userUpdateAvatarReducer,
+  forgotPasswordReducer
+
 } from "./UserReducers";
 import {
   getOrderDetailReducer,
@@ -38,6 +40,7 @@ const rootReducer = combineReducers({
   userDetails: userDetailReducer,
   userUpdate: userUpdateProfileReducer,
   updateAvatar: userUpdateAvatarReducer,
+  forgotPassword :forgotPasswordReducer,
 
   // MY ORDERS
   orderCreate: orderCreateReducer,

@@ -21,7 +21,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OAuthButtonGroup } from "./OAuthButtonGroup";
 import { PasswordField } from "./PasswordField";
-import { login } from "../../redux/actions/UserAction";
+import { forgotPassword, login } from "../../redux/actions/UserAction";
 import Message from "../../components/LoadingError/Error";
 import Loading from "../../components/LoadingError/Loading";
 import { Link } from "react-router-dom";
@@ -33,6 +33,9 @@ const LoginMain = ({ location, history }) => {
   const redirect = location.search ? location.search.split("=")[1] : "/";
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
+
+  const userForgot = useSelector((state) => state.forgotPassword)
+
   // eslint-disable-next-line
   const toast = useToast();
   // Executing side-effect in process of user login
@@ -49,11 +52,26 @@ const LoginMain = ({ location, history }) => {
     }
     // eslint-disable-next-line
   }, [userInfo, redirect, history, dispatch]);
-
+  const handleForgot = (e) => {
+    e.preventDefault();
+    dispatch(forgotPassword(email))
+  }
+  useEffect(() => {
+    if (userForgot.loading=== false) {
+      toast({
+        title: userForgot.message,
+        status: userForgot.status,
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+  }, [toast, userForgot, dispatch])
   const submitHandler = (e) => {
     e.preventDefault();
     // Todo
     dispatch(login(email, password));
+
   };
   return (
     <Container
@@ -145,7 +163,7 @@ const LoginMain = ({ location, history }) => {
             </Stack>
             <HStack justify="space-between" mt={4}>
               <Checkbox defaultChecked>Remember</Checkbox>
-              <Button variant="link" colorScheme="blue" size="sm">
+              <Button variant="link" colorScheme="blue" size="sm" onClick={handleForgot}>
                 Forgot password?
               </Button>
             </HStack>

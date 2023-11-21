@@ -9,7 +9,6 @@ const CartScreen = ({ match, location, history }) => {
   // keep window screen always top
   const dispatch = useDispatch();
   const productId = match.params.id;
-  // Finding URL contain " = "
   const qty = location.qty;
   // Update Cart
   const cart = useSelector((state) => state.cart);

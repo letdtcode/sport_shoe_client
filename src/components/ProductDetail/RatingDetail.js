@@ -172,9 +172,10 @@ const RatingDetail = (props) => {
                         className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded-0"
                         key={item.reviewId._id}
                       >
-                        {/* <button onClick={() => console.log(item)}>Test</button> */}
+                      
                         <Text fontSize="lg" fontWeight="bold">
                           {item.reviewId.name}
+                        
                         </Text>
                         <Rating value={item.reviewId.rating} />
                         <Text fontSize="14px" fontWeight="light">

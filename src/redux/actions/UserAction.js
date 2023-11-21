@@ -1,10 +1,5 @@
 import axios from "../../services/axios";
-import {
-  updateAvatarRequest,
-  loginUserApi,
-  registerApi,
-  updateProfileRequest,
-} from "../../services/API/usersAPI";
+import { updateAvatarRequest, loginUserApi, registerApi, updateProfileRequest, forgotPasswordRequest } from "../../services/API/usersAPI";
 import { ORDER_LIST_MY_RESET } from "../constants/OrderConstants";
 
 import {
@@ -27,12 +22,15 @@ import {
   UPDATE_AVATAR_FAIL,
   RESET_REGISTER_SUCCESS,
   USER_LOGIN_REFRESH,
+  FORGOT_PASSWORD_REQUEST, 
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAIL,
 } from "../constants/UserContants";
 // USER LOGIN
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
-    const dataLogin = await loginUserApi(email, password);
+    const dataLogin = await loginUserApi(email, password)
     if (dataLogin.status === 200) {
       localStorage.setItem("userInfo", JSON.stringify(dataLogin.data.userInfo));
       localStorage.setItem(
@@ -179,3 +177,30 @@ export const updateAvatar = (imageFile) => async (dispatch) => {
 export const resetRegisterSuccess = () => ({
   type: RESET_REGISTER_SUCCESS,
 });
+
+
+
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+    dispatch({type: FORGOT_PASSWORD_REQUEST})
+    const response = await forgotPasswordRequest(email)
+   if (response.status=== 200){
+    dispatch({
+      type: FORGOT_PASSWORD_SUCCESS,
+      payload: response.data.message,
+    })
+   }
+   else if (response.status=== 404)
+   {
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL,
+      payload: response.data.message,
+    });
+   }
+  } catch (error) {
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL,
+      payload: error.message,
+    });
+  }
+};

@@ -6,13 +6,12 @@ import {
   BRAND_LIST_SUCCESS,
 } from "../constants/BrandConstants";
 
-// [GET] GET ALL BRANDS LIST ACTION
+// [GET] GET ALL CATEGORIES LIST ACTION
 export const brandListAllAction = () => async (dispatch) => {
   try {
     dispatch({ type: BRAND_LIST_REQUEST });
 
     const { data } = await axios.get(`${URL}/api/v1/brands`);
-
     dispatch({ type: BRAND_LIST_SUCCESS, payload: data });
   } catch (error) {
     const message =

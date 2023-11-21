@@ -18,11 +18,15 @@ import {
   UPDATE_AVATAR_FAIL,
   RESET_REGISTER_SUCCESS,
   USER_LOGIN_REFRESH,
+  FORGOT_PASSWORD_REQUEST, 
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAIL,
 } from "../constants/UserContants";
 
 const stateDefault = {
   user: {},
   userInfo: [],
+  message : "",
 };
 
 // USER LOGIN
@@ -167,3 +171,34 @@ export const userUpdateAvatarReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const forgotPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+
+    case FORGOT_PASSWORD_REQUEST:
+    
+      return {
+        ...state,
+        loading: true,
+        message: action.payload,
+      };
+    case FORGOT_PASSWORD_SUCCESS:
+   
+      return {
+        ...state,
+        loading: false,
+        status: "success",
+        message: action.payload,
+      };
+    case FORGOT_PASSWORD_FAIL:
+      return {
+        ...state,
+        loading: false,
+        status: "error",
+        message: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+

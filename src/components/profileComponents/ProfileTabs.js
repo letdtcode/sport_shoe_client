@@ -42,14 +42,21 @@ const ProfileTabs = () => {
 
   const submitUpdateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateProfile({ id: userInfo._id, name, email, gender, address, phoneNumber: phone }));
-    if (!toast.isActive(toastId.current)) {
-      toastId.current = toast.success(
-        "Profile updated successful",
-        ToastObjects
-      );
+    if (password !== confirmPass) {
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.error("Password does not match", ToastObjects);
+      }
+    } else {
+
+      dispatch(updateProfile({ id: userInfo._id, name, email, gender, address, phoneNumber: phone, password }));
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success(
+          "Profile updated successful",
+          ToastObjects
+        );
+      }
     }
-  };
+  }
 
   return (
     <>
@@ -110,7 +117,7 @@ const ProfileTabs = () => {
             </select>
           </div>
         </div>
-        {/* <div className="col-md-6">
+        <div className="col-md-6">
           <div className="form">
             <label for="password">New password</label>
             <input
@@ -131,11 +138,11 @@ const ProfileTabs = () => {
               onChange={(e) => setConfirmPass(e.target.value)}
             />
           </div>
-        </div> */}
+        </div>
         <button type="submit">Update profile</button>
       </form>
     </>
   );
 };
 
-export default ProfileTabs;
+export default ProfileTabs
