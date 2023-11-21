@@ -81,7 +81,7 @@ const RatingDetail = (props) => {
                         {moment(item.reviewId.createdAt).calendar()}
                       </Text>
                       <Text fontSize="16px" className="alert alert-info mt-3">
-                        {item.comment}
+                        {item.reviewId.comment}
                       </Text>
                     </Box>
                   ))}

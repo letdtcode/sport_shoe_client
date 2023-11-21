@@ -14,15 +14,13 @@ import {
   Thead,
   Tr,
   VStack,
-  Input
+  Input,
 } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { addToCart, removeFromCart } from "../../redux/actions/CartAction";
 
-const CartItem = (props) => {
-  const { cartItems, total, dispatch, history } = props;
-
+const CartItem = ({ cartItems, total, dispatch, history }) => {
   // Checkout handler
   const checkOutHandler = (e) => {
     e.preventDefault();
@@ -72,7 +70,6 @@ const CartItem = (props) => {
                   </Thead>
                   <Tbody>
                     {cartItems.map((item, index) => (
-                      
                       <Tr key={index}>
                         <Td>
                           <Flex className="itemside">
@@ -98,22 +95,28 @@ const CartItem = (props) => {
                             </Box>
                           </Flex>
                         </Td>
-                     
+
                         <Td className="center">
-                        <div className="type-control">
-                          {item.typeSelect.color} - {item.typeSelect.size}
-                        </div>
+                          <div className="type-control">
+                            {item.typeSelect.color} - {item.typeSelect.size}
+                          </div>
                         </Td>
                         <Td className="center">
                           <div className="quantity-control">
                             <Button
-                              onClick={() => {      
-                                if (item.qty < item.typeSelect.countInStock) {
-                                  dispatch(addToCart(item.product.id, item.qty + 1,  item.typeSelect));
+                              onClick={() => {
+                                if (item.qty > 1) {
+                                  dispatch(
+                                    addToCart(
+                                      item.product.id,
+                                      item.qty - 1,
+                                      item.typeSelect
+                                    )
+                                  );
                                 }
                               }}
                             >
-                              +
+                              -
                             </Button>
                             <Input
                               width={50}
@@ -122,25 +125,40 @@ const CartItem = (props) => {
                               min={0}
                               max={item.countInStock}
                               onChange={(e) => {
-                                const newValue = Math.min(Math.max(0, e.target.value), item.typeSelect.countInStock);
-                                dispatch(addToCart(item.product.id, newValue, item.typeSelect));
+                                const newValue = Math.min(
+                                  Math.max(0, e.target.value),
+                                  item.typeSelect.countInStock
+                                );
+                                dispatch(
+                                  addToCart(
+                                    item.product.id,
+                                    newValue,
+                                    item.typeSelect
+                                  )
+                                );
                               }}
                             />
                             <Button
                               onClick={() => {
-                                if (item.qty > 1) {
-                                  dispatch(addToCart(item.product.id, item.qty - 1,  item.typeSelect));
+                                if (item.qty < item.typeSelect.countInStock) {
+                                  dispatch(
+                                    addToCart(
+                                      item.product.id,
+                                      item.qty + 1,
+                                      item.typeSelect
+                                    )
+                                  );
                                 }
                               }}
                             >
-                              -
+                              +
                             </Button>
                           </div>
                         </Td>
                         <Td textAlign="center">
                           <Box className="price-wrap">
                             <Text size="lg" className="price">
-                              ${item.price}
+                              $ {item.product.price}
                             </Text>
                             {/* <small className="text-muted"> $315 each </small> */}
                           </Box>
@@ -148,7 +166,12 @@ const CartItem = (props) => {
                         <Td textAlign="center">
                           <Button
                             colorScheme="red"
-                            onClick={() => removeCartHandler(item.product.id, item.typeSelect)}
+                            onClick={() =>
+                              removeCartHandler(
+                                item.product.id,
+                                item.typeSelect
+                              )
+                            }
                           >
                             Remove
                           </Button>
