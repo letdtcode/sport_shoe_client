@@ -13,6 +13,7 @@ import {
   PRODUCT_LIST_SUCCESS,
 } from "../constants/ProductConstants";
 import * as productApi from "../../services/API/productAPI";
+import { clear } from "i/lib/inflections";
 
 // [GET] ALL PRODUCT
 export const listProduct =
@@ -30,7 +31,7 @@ export const listProduct =
     } catch (error) {
       dispatch({
         type: PRODUCT_LIST_FAIL,
-        payload:error.response?.data?.message || error.message,
+        payload: error.response?.data?.message || error.message,
       });
     }
   };
@@ -39,6 +40,7 @@ export const listProduct =
 export const getFilteredProducts =
   (skip, limit, filters = []) =>
   async (dispatch) => {
+    console.log(filters);
     try {
       dispatch({ type: FILTER_LIST_REQUEST });
       const data = await productApi.getFilteredProducts(skip, limit, filters);
@@ -46,7 +48,7 @@ export const getFilteredProducts =
     } catch (error) {
       dispatch({
         type: FILTER_LIST_FAIL,
-        payload:error.response?.data?.message || error.message,
+        payload: error.response?.data?.message || error.message,
       });
     }
   };
@@ -62,7 +64,7 @@ export const listProductDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
-      payload:error.response?.data?.message || error.message,
+      payload: error.response?.data?.message || error.message,
     });
   }
 };
@@ -82,7 +84,7 @@ export const productCreateReviewAction =
         payload: data,
       });
     } catch (error) {
-      const message = error.response?.data?.message || error.message
+      const message = error.response?.data?.message || error.message;
 
       dispatch({
         type: PRODUCT_CREATE_REVIEW_FAIL,
@@ -91,20 +93,19 @@ export const productCreateReviewAction =
     }
   };
 
+export const getProducts = (sortBy) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_LIST_REQUEST });
+    const data = await productApi.getProductsBySort(sortBy);
 
-  export const getProducts = (sortBy) => async (dispatch) => {
-    try {
-      dispatch({ type: PRODUCT_LIST_REQUEST });
-      const data = await productApi.getProductsBySort(sortBy);
-  
-      dispatch({
-        type: PRODUCT_LIST_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: PRODUCT_LIST_FAIL,
-        payload:error.response?.data?.message || error.message,
-      });
-    }
-  };
+    dispatch({
+      type: PRODUCT_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_LIST_FAIL,
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};

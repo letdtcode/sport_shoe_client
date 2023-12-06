@@ -34,7 +34,7 @@ const LoginMain = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
-  const userForgot = useSelector((state) => state.forgotPassword)
+  const userForgot = useSelector((state) => state.forgotPassword);
 
   // eslint-disable-next-line
   const toast = useToast();
@@ -54,10 +54,10 @@ const LoginMain = ({ location, history }) => {
   }, [userInfo, redirect, history, dispatch]);
   const handleForgot = (e) => {
     e.preventDefault();
-    dispatch(forgotPassword(email))
-  }
+    dispatch(forgotPassword(email));
+  };
   useEffect(() => {
-    if (userForgot.loading=== false) {
+    if (userForgot.loading === false) {
       toast({
         title: userForgot.message,
         status: userForgot.status,
@@ -66,12 +66,11 @@ const LoginMain = ({ location, history }) => {
         position: "top-right",
       });
     }
-  }, [toast, userForgot, dispatch])
+  }, [toast, userForgot, dispatch]);
   const submitHandler = (e) => {
     e.preventDefault();
     // Todo
     dispatch(login(email, password));
-
   };
   return (
     <Container
@@ -163,7 +162,12 @@ const LoginMain = ({ location, history }) => {
             </Stack>
             <HStack justify="space-between" mt={4}>
               <Checkbox defaultChecked>Remember</Checkbox>
-              <Button variant="link" colorScheme="blue" size="sm" onClick={handleForgot}>
+              <Button
+                variant="link"
+                colorScheme="blue"
+                size="sm"
+                onClick={handleForgot}
+              >
                 Forgot password?
               </Button>
             </HStack>
