@@ -24,6 +24,7 @@ import LoginMain from "./components/LoginScreen-UI/LoginMain-v1";
 import SignUp from "./components/SignupScreen-UI/SignupMain-v1";
 import NotFound from "./views/NotFound"; 
 const App = () => {
+  console.log(process.env)
   return (
     <ChakraProvider theme={theme}>
       <Router>
