@@ -10,8 +10,8 @@ import {
 import Loading from "../../components/LoadingError/Loading";
 import Message from "../../components/LoadingError/Error";
 import moment from "moment";
-import axios from "axios";
-import { ORDER_PAY_RESET } from "../../redux/constants/OrderConstants";
+import axios from "../../services/axios";
+import { ORDER_PAY_RESET ,ORDER_CREATE_RESET} from "../../redux/constants/OrderConstants";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -51,7 +51,7 @@ const OrderScreen = ({ match }) => {
   const orderDelete = useSelector((state) => state.orderDelete);
   const { success: successDelete } = orderDelete;
   const { loading: loadingPay, success: successPay } = orderPay;
-
+  const [reload, setReload] = useState(false);
   //* Address loading event to catching itemsPrice when clicked continue in cart!! Very Important
   if (!loading) {
     const addDecimals = (num) => {
@@ -75,6 +75,7 @@ const OrderScreen = ({ match }) => {
       document.body.appendChild(script);
     };
     if (!order || successPay) {
+      dispatch({ type: ORDER_CREATE_RESET });
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrder(orderId));
     } else if (!order.isPaid) {
@@ -95,7 +96,16 @@ const OrderScreen = ({ match }) => {
         isClosable: true,
       });
     }
-  }, [dispatch, orderId, successPay, order, successDelete, history, toast]);
+  }, [
+    dispatch,
+    orderId,
+    successPay,
+    order,
+    successDelete,
+    history,
+    toast,
+    reload,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
@@ -136,7 +146,20 @@ const OrderScreen = ({ match }) => {
       </Tag>
     );
   };
-
+  const handleConfirmReceived = async (e) => {
+    e.preventDefault();
+    await axios
+      .put(`${URL}/api/v1/orders/change-status?id=${order._id}&status=3`)
+      .then((res) => {
+        if (res.status === 200) 
+        {
+          dispatch(getOrder(orderId));
+          
+          setReload(reload === false);
+        }
+        
+      });
+  };
   return (
     <section className="order-id-wrapper mt-5">
       <AlertDialog
@@ -478,19 +501,7 @@ const OrderScreen = ({ match }) => {
                             <Text fontSize="md">{order.user.email}</Text>
                           </Box>
                         </Flex>
-                        {/* <Flex
-                      className="single-details-item flex-wrap"
-                      align="center"
-                    >
-                      <div className="details-title">
-                        <Heading as="h6" size="xs" className="title">
-                          Điện thoại:
-                        </Heading>
-                      </div>
-                      <div className="details-content">
-                        <Text fontSize="md">+123 456 789 0234</Text>
-                      </div>
-                    </Flex> */}
+
                         <Flex
                           className="single-details-item flex-wrap"
                           align="center"
@@ -509,29 +520,17 @@ const OrderScreen = ({ match }) => {
                           </div>
                         </Flex>
                         {statusOrderShow(order.status)}
-                        {/* {order.isDelivered ? (
-                          <Tag
-                            ml="1"
-                            size="lg"
-                            colorScheme="green"
-                            variant="solid"
-                          >
-                            <Text className="text-center text-sm-start">
-                              Delivering {moment(order.deliveredAt).calendar()}
-                            </Text>
-                          </Tag>
+                        {order.status === 2 ? (
+                          <>
+                            <button onClick={handleConfirmReceived}>
+                              Confirm Received
+                            </button>
+                          </>
                         ) : (
-                          <Tag
-                            ml="1"
-                            size="lg"
-                            colorScheme="red"
-                            variant="solid"
-                          >
-                            <Text className="text-center text-sm-start">
-                              Not delivered
-                            </Text>
-                          </Tag>
-                        )} */}
+                          <>
+                            <p></p>
+                          </>
+                        )}
                       </Stack>
                     </Stack>
                   </div>
