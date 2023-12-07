@@ -25,6 +25,7 @@ import NotFound from "./views/NotFound";
 import OutsideRouter from "./routes/OutsideRouter";
 import ActiveAccountPage from "./views/ActiveAccountPage";
 const App = () => {
+  console.log(process.env)
   return (
     <ChakraProvider theme={theme}>
       <Router>
