@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import "./responsive.css";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
@@ -22,8 +21,11 @@ import OrderScreen from "./components/OrderScreen-UI/OrderScreen.v1";
 import ContactScreen from "./views/ContactScreen";
 import LoginMain from "./components/LoginScreen-UI/LoginMain-v1";
 import SignUp from "./components/SignupScreen-UI/SignupMain-v1";
-
+import NotFound from "./views/NotFound";
+import OutsideRouter from "./routes/OutsideRouter";
+import ActiveAccountPage from "./views/ActiveAccountPage";
 const App = () => {
+  console.log(process.env)
   return (
     <ChakraProvider theme={theme}>
       <Router>
@@ -32,6 +34,7 @@ const App = () => {
           <HomeRouter path="/shop/:category" component={ShopScreen} />
           <HomeRouter path="/shop" component={ShopScreen} />
           <HomeRouter path="/products/:id" component={SingleProduct} />
+          <OutsideRouter path="/active_account" component={ActiveAccountPage} />
           <HomeRouter path="/login" component={LoginMain} />
           <HomeRouter path="/register" component={SignUp} />
           <HomeRouter path="/cart/:id?" component={CartScreen} />
@@ -40,10 +43,10 @@ const App = () => {
           <PrivateRouter path="/shipping" component={ShippingScreen} />
           <PrivateRouter path="/payment" component={PaymentScreen} />
           <HomeRouter path="/cartitem" component={CartItem} />
-          <PrivateRouter path="/dat-hang" component={PlaceOrder} />
+          <PrivateRouter path="/place-order" component={PlaceOrder} />
           <PrivateRouter path="/order/:id" component={OrderScreen} />
-
-          <HomeRouter path="*" component={ShopScreen} />
+          <HomeRouter path="/search/:keyword" component={ShopScreen} />
+          <HomeRouter path="*" component={NotFound} />
         </Switch>
       </Router>
     </ChakraProvider>

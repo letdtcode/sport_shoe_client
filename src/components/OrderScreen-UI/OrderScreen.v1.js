@@ -10,8 +10,8 @@ import {
 import Loading from "../../components/LoadingError/Loading";
 import Message from "../../components/LoadingError/Error";
 import moment from "moment";
-import axios from "axios";
-import { ORDER_PAY_RESET } from "../../redux/constants/OrderConstants";
+import axios from "../../services/axios";
+import { ORDER_PAY_RESET ,ORDER_CREATE_RESET} from "../../redux/constants/OrderConstants";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -51,21 +51,20 @@ const OrderScreen = ({ match }) => {
   const orderDelete = useSelector((state) => state.orderDelete);
   const { success: successDelete } = orderDelete;
   const { loading: loadingPay, success: successPay } = orderPay;
-
+  const [reload, setReload] = useState(false);
   //* Address loading event to catching itemsPrice when clicked continue in cart!! Very Important
   if (!loading) {
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2);
     };
-
     order.itemsPrice = addDecimals(
-      order.orderItems.reduce((a, b) => a + b.qty * b.price, 0)
+      order.orderItems.reduce((a, b) => a + b.typeProduct.quantity * b.price, 0)
     );
   }
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get(`${URL}/api/config/paypal`);
+      const { data: clientId } = await axios.get(`${URL}/api/v1/config/paypal`);
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
@@ -76,6 +75,7 @@ const OrderScreen = ({ match }) => {
       document.body.appendChild(script);
     };
     if (!order || successPay) {
+      dispatch({ type: ORDER_CREATE_RESET });
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrder(orderId));
     } else if (!order.isPaid) {
@@ -96,16 +96,69 @@ const OrderScreen = ({ match }) => {
         isClosable: true,
       });
     }
-  }, [dispatch, orderId, successPay, order, successDelete, history, toast]);
+  }, [
+    dispatch,
+    orderId,
+    successPay,
+    order,
+    successDelete,
+    history,
+    toast,
+    reload,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
   };
 
   const deleteHandler = (e) => {
     e.preventDefault();
     dispatch(deleteOrderAction(order._id));
+  };
+
+  const statusOrderShow = (status) => {
+    let textShow = "";
+    let typeColor = "";
+    switch (status) {
+      case 0:
+        textShow = "Awaiting confirm";
+        typeColor = "blue";
+        break;
+      case 1:
+        textShow = "Awaiting delivery";
+        typeColor = "yellow";
+        break;
+      case 2:
+        textShow = "Delivering";
+        typeColor = "gray";
+        break;
+      case 3:
+        textShow = "Received";
+        typeColor = "green";
+        break;
+      default:
+        textShow = "Cancelled";
+        typeColor = "red";
+    }
+    return (
+      <Tag ml="1" size="lg" colorScheme={typeColor} variant="solid">
+        <Text className="text-center text-sm-start">{textShow}</Text>
+      </Tag>
+    );
+  };
+  const handleConfirmReceived = async (e) => {
+    e.preventDefault();
+    await axios
+      .put(`${URL}/api/v1/orders/change-status?id=${order._id}&status=3`)
+      .then((res) => {
+        if (res.status === 200) 
+        {
+          dispatch(getOrder(orderId));
+          
+          setReload(reload === false);
+        }
+        
+      });
   };
   return (
     <section className="order-id-wrapper mt-5">
@@ -206,7 +259,7 @@ const OrderScreen = ({ match }) => {
                                         className="title"
                                       >
                                         <Link
-                                          to={`/products/${item._id}`}
+                                          to={`/products/${item.product}`}
                                           target="_blank"
                                         >
                                           {item.name}
@@ -220,13 +273,25 @@ const OrderScreen = ({ match }) => {
                                         </li> */}
                                         <li>
                                           <Text fontSize="14px">
-                                            {item.qty} X {item.price}
+                                            {item.typeProduct.quantity} X{" "}
+                                            {item.price}$
                                           </Text>
                                         </li>
+                                      </ul>
+                                      <ul>
+                                        <Text fontSize="14px">
+                                          Color: {item.typeProduct.color}
+                                        </Text>
+                                      </ul>
+                                      <ul>
+                                        <Text fontSize="14px">
+                                          Size: {item.typeProduct.size}
+                                        </Text>
                                       </ul>
                                     </div>
                                   </div>
                                 </Td>
+
                                 <Td className="price">
                                   <Text
                                     fontSize="14px"
@@ -436,19 +501,7 @@ const OrderScreen = ({ match }) => {
                             <Text fontSize="md">{order.user.email}</Text>
                           </Box>
                         </Flex>
-                        {/* <Flex
-                      className="single-details-item flex-wrap"
-                      align="center"
-                    >
-                      <div className="details-title">
-                        <Heading as="h6" size="xs" className="title">
-                          Điện thoại:
-                        </Heading>
-                      </div>
-                      <div className="details-content">
-                        <Text fontSize="md">+123 456 789 0234</Text>
-                      </div>
-                    </Flex> */}
+
                         <Flex
                           className="single-details-item flex-wrap"
                           align="center"
@@ -466,28 +519,17 @@ const OrderScreen = ({ match }) => {
                             </Text>
                           </div>
                         </Flex>
-                        {order.isDelivered ? (
-                          <Tag
-                            ml="1"
-                            size="lg"
-                            colorScheme="green"
-                            variant="solid"
-                          >
-                            <Text className="text-center text-sm-start">
-                              Delivering {moment(order.deliveredAt).calendar()}
-                            </Text>
-                          </Tag>
+                        {statusOrderShow(order.status)}
+                        {order.status === 2 ? (
+                          <>
+                            <button onClick={handleConfirmReceived}>
+                              Confirm Received
+                            </button>
+                          </>
                         ) : (
-                          <Tag
-                            ml="1"
-                            size="lg"
-                            colorScheme="red"
-                            variant="solid"
-                          >
-                            <Text className="text-center text-sm-start">
-                              Not delivered
-                            </Text>
-                          </Tag>
+                          <>
+                            <p></p>
+                          </>
                         )}
                       </Stack>
                     </Stack>

@@ -1,54 +1,25 @@
 import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
-const rating = ({ value, text }) => {
+const Rating = ({ value, text }) => {
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      let starClass =
+        value >= i
+          ? "fas fa-star"
+          : value >= i - 0.5
+          ? "fas fa-star-half-alt"
+          : "far fa-star";
+
+      stars.push(<i key={i} className={starClass}></i>);
+    }
+    return stars;
+  };
+
   return (
     <Flex className="rating" align="center">
-      <i
-        className={
-          value >= 1
-            ? "fas fa-star"
-            : value >= 0.5
-            ? "fas fa-star-half-alt"
-            : "fas fa-star"
-        }
-      ></i>
-      <i
-        className={
-          value >= 2
-            ? "fas fa-star"
-            : value >= 1.5
-            ? "fas fa-star-half-alt"
-            : "fas fa-star"
-        }
-      ></i>
-      <i
-        className={
-          value >= 3
-            ? "fas fa-star"
-            : value >= 2.5
-            ? "fas fa-star-half-alt"
-            : "fas fa-star"
-        }
-      ></i>
-      <i
-        className={
-          value >= 4
-            ? "fas fa-star"
-            : value >= 3.5
-            ? "fas fa-star-half-alt"
-            : "fas fa-star"
-        }
-      ></i>
-      <i
-        className={
-          value >= 5
-            ? "fas fa-star"
-            : value >= 4.5
-            ? "fas fa-star-half-alt"
-            : "fas fa-star"
-        }
-      ></i>
+      {renderStars()}
       <Text fontSize="md" color="gray.600" fontWeight="100" marginLeft={2}>
         {text && text}
       </Text>
@@ -56,4 +27,4 @@ const rating = ({ value, text }) => {
   );
 };
 
-export default rating;
+export default Rating;

@@ -33,15 +33,14 @@ const ClientsLogo = () => {
   return (
     <Container
       maxW={{ base: "container.lg", md: "container.xl" }}
-      className="mt-5"
     >
-      <Center height={[50, 200, 300]}>
+      <Center height={[50, 150]}>
         <Heading as="h2" size="2xl" textTransform="uppercase" fontWeight={700}>
           Brands Partner
         </Heading>
       </Center>
 
-      <SliderItem height={300}>
+      <SliderItem height={200}>
         {logoRender.map((item) => (
           <Marquee speed={100} gradientWidth={true} key={item.id}>
             <Image

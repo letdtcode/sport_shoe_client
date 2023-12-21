@@ -30,7 +30,7 @@ const PlaceOrder = ({ history }) => {
 
   // Product Price
   cart.itemsPrice = addDecimals(
-    cart.cartItems.reduce((a, b) => a + b.qty * b.price, 0)
+    cart.cartItems.reduce((a, b) => a + b.qty * b.product.price, 0)
   );
   // Shipping Price
   cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 0);
@@ -118,8 +118,8 @@ const PlaceOrder = ({ history }) => {
                                   <div className="order-product-item d-flex">
                                     <div className="product-thumb">
                                       <img
-                                        src={`${item.image}`}
-                                        alt={`${item.name}`}
+                                        src={`${item.product.image}`}
+                                        alt={`${item.product.name}`}
                                       />
                                     </div>
                                     <div className="product-content media-body">
@@ -128,17 +128,17 @@ const PlaceOrder = ({ history }) => {
                                         size="md"
                                         className="title"
                                       >
-                                        <a href="#0">{item.name}</a>
+                                        <a href="#0">{item.product.name}</a>
                                       </Heading>
                                       <ul>
                                         <li>
                                           <Text fontSize="14px">
-                                            Brand: {item.category.name}
+                                            Brand: {item.product.nameCategory}
                                           </Text>
                                         </li>
                                         <li>
                                           <Text fontSize="14px">
-                                            {item.qty} X {item.price}
+                                            {item.qty} X {item.product.price}
                                           </Text>
                                         </li>
                                       </ul>
@@ -150,7 +150,7 @@ const PlaceOrder = ({ history }) => {
                                     fontSize="14px"
                                     className="product-price"
                                   >
-                                    ${item.price}
+                                    ${item.product.price}
                                   </Text>
                                 </Td>
                               </Tr>
@@ -178,10 +178,8 @@ const PlaceOrder = ({ history }) => {
                       </div>
                       <Flex className="card-body border-top" justify="end">
                         {cart.cartItems.length === 0 ? null : (
-                          <button type="submit" onClick={placeOrderHandler}>
-                            <Link className="text-light btn btn-dark">
+                          <button type="submit" className="btn-checkout" onClick={placeOrderHandler}>                          
                               Confirm order
-                            </Link>
                           </button>
                         )}
                       </Flex>

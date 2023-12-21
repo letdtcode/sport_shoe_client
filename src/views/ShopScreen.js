@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryListAllAction } from "../redux/actions/CategoryAction";
+import { brandListAllAction } from "../redux/actions/BrandAction";
 import ShopProduct from "../components/Shop/ShopProduct";
 import Pagination from "react-js-pagination";
-import { getFilteredProducts } from ".././redux/actions/ProductAction";
-import CheckboxCategoryFilter from "../components/Shop/Checkbox";
+import {
+  getFilteredProducts,
+  listProduct,
+} from ".././redux/actions/ProductAction";
+import CheckboxCategoryFilter from "../components/Shop/CheckboxCategoryFilter";
+import CheckboxBrandFilter from "../components/Shop/CheckboxBrandFilter";
 import { prices } from "../components/Shop/PriceChart";
 import { Box, Heading, Select, Stack } from "@chakra-ui/react";
 import RadioBox from "../components/Shop/RadioBox";
@@ -13,13 +18,14 @@ import RadioBox from "../components/Shop/RadioBox";
 const ShopScreen = () => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productFilter);
-  const categoryList = useSelector((state) => state.categoryList);
-  const { categories } = categoryList;
+  const { categories } = useSelector((state) => state.categoryList);
+  const { brands } = useSelector((state) => state.brandList);
 
   const { loading, error, products } = productList;
   const [myFilters, setMyFilters] = useState({
-    filters: { category: [], price: [] },
+    filters: { categoryName: [], brandName: [], price: [] },
   });
+
   // eslint-disable-next-line
   const [limit, setLimit] = useState(100);
   // eslint-disable-next-line
@@ -30,6 +36,7 @@ const ShopScreen = () => {
   // eslint-disable-next-line
   const init = () => {
     dispatch(categoryListAllAction());
+    dispatch(brandListAllAction());
   };
 
   const loadFilteredResults = (newFilters) => {
@@ -74,10 +81,15 @@ const ShopScreen = () => {
   };
   useEffect(() => {
     init();
-    loadFilteredResults(skip, limit, myFilters.filters);
+    if (keyword !== undefined) {
+      dispatch(listProduct(keyword));
+    } else {
+      loadFilteredResults(skip, limit, myFilters.filters);
+    }
     // eslint-disable-next-line
   }, []);
 
+  const { keyword } = useParams();
   return (
     <>
       <section className="section-pagetop bg mt-5 container-fluid">
@@ -134,51 +146,33 @@ const ShopScreen = () => {
                     </div>
                   </div>
                 </article>
-
                 <article className="filter-group accordion-item">
-                  <header className=" accordion-header" id="headingOne">
+                  <header className=" accordion-header" id="headingTwo">
                     <Heading
                       as="h5"
                       size="sm"
                       className="accordion-button title"
                       type="button"
                       data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne"
+                      data-bs-target="#collapseTwo"
                       aria-expanded="true"
-                      aria-controls="collapseOne"
+                      aria-controls="collapseTwo"
                     >
-                      Kind of product
+                      Categories
                     </Heading>
                   </header>
                   <div
                     className="filter-content collapse show"
-                    id="collapseOne"
+                    id="collapseTwo"
                   >
-                    <div className="card-body">
-                      <form className="pb-3">
-                        <div className="input-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search"
-                          />
-                          <div className="input-group-append">
-                            <button className="btn btn-light" type="button">
-                              <i className="fa fa-search" />
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                      <ul className="list-menu">
-                        {products.slice(0, 6).map((product) => (
-                          <li key={product._id}>
-                            <Link to={`/products/${product._id}`}>
-                              {product.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <ul className="list-group p-1">
+                      <CheckboxCategoryFilter
+                        categories={categories}
+                        handleFilters={(filters) =>
+                          handleFilters(filters, "categoryName")
+                        }
+                      />
+                    </ul>
                   </div>
                 </article>
                 <article className="filter-group accordion-item">
@@ -201,10 +195,10 @@ const ShopScreen = () => {
                     id="collapseTwo"
                   >
                     <ul className="list-group p-1">
-                      <CheckboxCategoryFilter
-                        categories={categories}
+                      <CheckboxBrandFilter
+                        brands={brands}
                         handleFilters={(filters) =>
-                          handleFilters(filters, "category")
+                          handleFilters(filters, "brandName")
                         }
                       />
                     </ul>

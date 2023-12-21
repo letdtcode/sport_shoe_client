@@ -35,9 +35,8 @@ const Footer = () => (
         align="start"
       >
         <Image
-          w={180}
-          h={70}
-          src="https://res.cloudinary.com/dfaejacdn/image/upload/v1667615733/Dan-Logo/logo_x77sj3.png"
+        
+          src="/images/logo.png"
         />
       </Stack>
       <Stack
@@ -121,26 +120,26 @@ const Footer = () => (
       align="center"
     >
       <Text fontSize="sm" color="black">
-        &copy; {new Date().getFullYear()} Di Dan, Inc. All rights reserved.
+        &copy; {new Date().getFullYear()} Inc. All rights reserved.
       </Text>
       <ButtonGroup variant="link">
         <IconButton
           as="a"
-          href="https://www.linkedin.com/in/ledidan/"
+          href="https://www.linkedin.com/"
           aria-label="LinkedIn"
           color="black.800"
           icon={<FaLinkedin fontSize="1.25rem" />}
         />
         <IconButton
           as="a"
-          href="https://www.github.com/ledidan"
+          href="https://www.github.com/"
           aria-label="GitHub"
           color="black.800"
           icon={<FaGithub fontSize="1.25rem" />}
         />
         <IconButton
           as="a"
-          href="https://www.facebook.com/ledidan"
+          href="https://www.facebook.com/"
           aria-label="Facebook"
           color="black.800"
           icon={<FaFacebook fontSize="1.25rem" />}

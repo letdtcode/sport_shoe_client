@@ -1,17 +1,17 @@
-import { Flex, HStack } from "@chakra-ui/react";
+import { Avatar, Flex, HStack, Img } from "@chakra-ui/react";
 import React from "react";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from "../../redux/actions/UserAction";
 import { CiUser } from "react-icons/ci";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import LogoComponent from "../Logo/Logo";
 const DesktopHeader = (props) => {
   const { userInfo, keyword, setKeyword, cartItems, dispatch } = props;
-
   const logoutHandler = (e) => {
     e.preventDefault();
     dispatch(logout());
-    window.open(`${process.env.REACT_APP_SERVER_URL}/auth/logout`, "_self");
+    window.open(`/`, "_self");
   };
   const history = useHistory();
   const submitHandler = (e) => {
@@ -26,7 +26,8 @@ const DesktopHeader = (props) => {
     <div className="row ">
       <div className="col-md-2 col-6 d-flex align-items-center">
         <Link className="navbar-brand" to="/">
-          <img alt="logo" src="/images/logo.png" />
+          {/* <img alt="logo" src="/images/logo.png" /> */}
+          <LogoComponent />
         </Link>
       </div>
       <div className="col-md-6 col-8 d-flex align-items-center">
@@ -54,16 +55,17 @@ const DesktopHeader = (props) => {
         {userInfo ? (
           <div className="btn-group">
             <ul className="nav nav-pills">
-              <li className="nav-item dropdown">
-                <Link
-                  className="nav-link dropdown-toggle name-button text-dark"
+              <li className="nav-item dropdown" style={{ display: "flex" }}>
+                <Avatar className="avatar" src={userInfo.avatarUrl?userInfo.avatarUrl: "./images/user.png"  }  />
+                <div
+                  className="nav-link dropdown-toggle text-dark"
                   data-bs-toggle="dropdown"
                 >
                   Hi,{" "}
                   {userInfo.isAdmin
                     ? `Admin ${userInfo.name}`
                     : `${userInfo.name}`}
-                </Link>
+                </div>
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to="/profile">
@@ -73,7 +75,7 @@ const DesktopHeader = (props) => {
                   <li>
                     <Link
                       className="dropdown-item"
-                      to="#"
+                      to="/"
                       onClick={logoutHandler}
                     >
                       Sign out
