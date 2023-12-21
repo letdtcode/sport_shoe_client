@@ -8,7 +8,7 @@ export const OAuthButtonGroup = () => {
       name: "Google",
       icon: <GoogleIcon boxSize="5" />,
       authButton: async () => {
-        window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, "_self");
+        window.open(`https://sport-shoe-server.vercel.app/auth/google`, "_self");
       },
     },
     {
@@ -16,7 +16,7 @@ export const OAuthButtonGroup = () => {
       icon: <FacebookIcon boxSize="5" />,
       authButton: async () => {
         window.open(
-          `${process.env.REACT_APP_SERVER_URL}/auth/facebook`,
+          `https://sport-shoe-server.vercel.app/auth/facebook`,
           "_self"
         );
       },
@@ -25,7 +25,7 @@ export const OAuthButtonGroup = () => {
       name: "GitHub",
       icon: <GitHubIcon boxSize="5" />,
       authButton: async () => {
-        window.open(`${process.env.REACT_APP_SERVER_URL}/auth/github`, "_self");
+        window.open(`https://sport-shoe-server.vercel.app/auth/github`, "_self");
       },
     },
   ];
