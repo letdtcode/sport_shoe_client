@@ -65,8 +65,8 @@
     ]
   },
   "engines": {
-    "node": "18.18.1",
-    "npm": "18.18.1"
+    "node": "18.4.0",
+    "npm": "18.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
