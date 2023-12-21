@@ -31,10 +31,12 @@ const Register = ({ location, history }) => {
   }, [userInfo, redirect, history]);
 
   const submitRegisterHandler = (e) => {
+    
     e.preventDefault();
     dispatch(register(name, email, password));
     if (!toast.isActive(toastId.current)) {
       toastId.current = toast.success("Registered successful", ToastObjects);
+     
     }
   };
   return (

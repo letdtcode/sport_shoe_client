@@ -73,12 +73,12 @@ const ShopProduct = (props) => {
                     NEW
                   </Badge>
                   <Link to={`/products/${item._id}`} className="img-wrap">
-                    <Image src={item.image} objectFit="cover" alt={item.name} />
+                    <Image src={item.image} objectFit="cover" alt={item.productName} />
                   </Link>
                   <figcaption className="info-wrap">
                     <div className="fix-height">
                       <Link to={`/products/${item._id}`} className="title">
-                        {item.name}
+                        {item.productName}
                       </Link>
                       <Text className="price">${item.price}</Text>
                       {/* <del className="price-old">$1980</del> */}
@@ -87,24 +87,6 @@ const ShopProduct = (props) => {
                         text={`${item.numReviews} reviews`}
                       />
                     </div>
-                    <CartButton
-                      className="my-2"
-                      onClick={() => {
-                        dispatch(addToCart(item._id, 1)) &&
-                          toast({
-                            title: `You've added ${1} product successfully.`,
-                            description: `You've added ${item.name} into cart`,
-                            status: "success",
-                            duration: 3000,
-                            isClosable: true,
-                          });
-                      }}
-                    >
-                      <Flex align="center">
-                        <BsCartPlus size="20px" className="mx-1" />
-                        Add to cart
-                      </Flex>
-                    </CartButton>
                   </figcaption>
                 </figure>
               </div>

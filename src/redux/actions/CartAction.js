@@ -8,30 +8,30 @@ import {
 import URL from "../../URL";
 // ADD PRODUCT TO CART
 
-export const addToCart = (id, qty) => async (dispatch, getState) => {
+export const addToCart = (id, qty, typeSelect) => async (dispatch, getState) => {
   const { data } = await axios.get(`${URL}/api/v1/products/${id}`);
 
   dispatch({
     type: CART_ADD_ITEM,
     payload: {
-      product: data._id,
-      name: data.name,
-      image: data.image,
-      price: data.price,
-      countInStock: data.countInStock,
-      category: data.category,
+      product: data.product,
       qty,
-    },
+      typeSelect
+    }
+
   });
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
 // REMOVE PRODUCT FROM CART
 
-export const removeFromCart = (id) => async (dispatch, getState) => {
+export const removeFromCart = (id, typeSelect) => async (dispatch, getState) => {
   dispatch({
     type: CART_REMOVE_ITEM,
-    payload: id,
+    payload:{
+      id,
+      typeSelect
+    } 
   });
 
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
